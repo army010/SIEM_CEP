@@ -29,11 +29,6 @@ public class SimpleSelectSubscriber implements StatementSubscriber {
 
     public void update(Map<String, SyslogEvent> eventMap) {
 
-        //EventC p3 = eventMap.get("p3");
-      //  String sb = "***************************************" +
-        //            "\n* EventC [" + p3 + "]";
-
-        //LOG.debug(sb);
     }
 
     @Override
