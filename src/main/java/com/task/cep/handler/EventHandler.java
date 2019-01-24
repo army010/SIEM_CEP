@@ -2,6 +2,8 @@ package com.task.cep.handler;
 
 import com.espertech.esper.client.*;
 
+import com.task.cep.event.AuthenticationLogEvent;
+import com.task.cep.event.ServerLogEvent;
 import com.task.cep.event.SyslogEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 import com.espertech.esper.client.EPStatement;
 import com.espertech.esper.client.UpdateListener;
-
+import java.util.List;
 
 @Component
 @Scope(value = "singleton")
@@ -50,7 +52,7 @@ public class EventHandler implements InitializingBean {
 
         //Registering Events to Engine
 
-        epService.getEPAdministrator().getConfiguration().addEventType(SyslogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(AuthenticationLogEvent.class);
 
         simpleSelect();
 
@@ -84,8 +86,26 @@ public class EventHandler implements InitializingBean {
         epService.getEPRuntime().sendEvent(log);
     }
 
+    public void handleAuthlog(List<AuthenticationLogEvent> log)
+    {
+       LOG.debug(log.toString());
 
+       epService.getEPRuntime().sendEvent(log);
+    }
 
+    public void handleServerlog(List<ServerLogEvent> log)
+    {
+        // LOG.debug(log.toString());
+
+        // epService.getEPRuntime().sendEvent(log);
+    }
+
+    public void handleSyslog(List<SyslogEvent> log)
+    {
+        // LOG.debug(log.toString());
+
+        // epService.getEPRuntime().sendEvent(log);
+    }
 
     @Override
     public void afterPropertiesSet() {
