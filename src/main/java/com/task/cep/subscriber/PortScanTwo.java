@@ -4,8 +4,7 @@ package com.task.cep.subscriber;
 import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
 import com.task.cep.event.SyslogEvent;
-import com.task.cep.handler.EventListener;
-import com.task.cep.handler.EventListener2;
+import com.task.cep.handler.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,16 +12,21 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class SimpleSelectSubscriber implements StatementSubscriber {
+public class PortScanTwo implements StatementSubscriber {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleSelectSubscriber.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PortScanTwo.class);
 
 
     public String getStatement() {
 
-        String select = "select * from SyslogEvent(message = 'Login Failed') having count(*) > 10";
+        String statement = "on CountStream(cnt >= 20) as cs " +
+                "merge SituationsWindow sw " +
+                "where cs.src = sw.src and cs.dst = sw.dst " +
+                "when not matched " +
+                "   then insert select src, dst, current_timestamp as detectionTime " +
+                "   then insert into OutputAlerts select 'DETECTED' as type, cs.cnt as cnt, cs.win as contributors";
 
-        return select;
+        return statement;
 
     }
 

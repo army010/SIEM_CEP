@@ -13,14 +13,15 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class SimpleSelectSubscriber implements StatementSubscriber {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleSelectSubscriber.class);
+public class BruteForceSubscriber implements StatementSubscriber {
+    private static final Logger LOG = LoggerFactory.getLogger(BruteForceSubscriber.class);
 
 
     public String getStatement() {
 
-        String select = "select * from SyslogEvent(message = 'Login Failed') having count(*) > 10";
+        String select = " insert into AlertBucket(user, message, date, src, eventID) select user, message, date, src, eventID" +
+                " from SyslogEvent(message = 'An Account failed to Log on').std:groupwin(src).win:time_length_batch(60 sec, 20)";
+                //" from SyslogEvent(message = 'Login Failed').std:groupwin(user).win:expr(current_count = 1)";
 
         return select;
 
@@ -31,7 +32,6 @@ public class SimpleSelectSubscriber implements StatementSubscriber {
     public void update(Map<String, SyslogEvent> eventMap) {
 
     }
-
 
     @Override
     public void addListener(EventListener eventListener, EPStatement statement) {

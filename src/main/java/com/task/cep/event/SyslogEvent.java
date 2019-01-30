@@ -24,12 +24,15 @@ public class SyslogEvent {
     private long date;
     private int priority;
     private String origin;
+    private String user;
+    private int eventID;
 
     public SyslogEvent() {
 
     }
 
-    public SyslogEvent(int _priority,int  _severity, String _message, int _date, String _src, String _dst, String _action, int _dst_port, int _src_port ) {
+    public SyslogEvent(String _user,int _priority,int  _severity, String _message, long _date, String _src, String _dst, String _action, int _dst_port, int _src_port ) {
+        user = _user;
         message = _message;
         priority = _priority;
         severity = _severity;
@@ -40,6 +43,43 @@ public class SyslogEvent {
         src = _src;
         dst = _dst;
     }
+
+    public SyslogEvent(String _user, String _message, long _date, String _src, String _dst, String _action, int _dst_port, int _src_port ) {
+        user = _user;
+        message = _message;
+        date = _date;
+        action = _action;
+        src_port = _src_port;
+        dst_port = _dst_port;
+        src = _src;
+        dst = _dst;
+    }
+
+    public SyslogEvent(String _user, String _message, long _date, String _src, String _dst, int _dst_port) {
+        message = _message;
+        user = _user;
+        date = _date;
+        dst_port = _dst_port;
+        src = _src;
+        dst = _dst;
+    }
+
+    public SyslogEvent(String _message, long _date, String _src, String _dst) {
+        message = _message;
+        date = _date;
+        src = _src;
+        dst = _dst;
+    }
+
+
+    public SyslogEvent(String _user, String _message, long _date, String _src, int _eventID ) {
+        user = _user;
+        eventID = _eventID;
+        date = _date;
+        message = _message;
+        src = _src;
+    }
+
     public void setDate(long _date) {
         date = _date;
     }
@@ -63,8 +103,36 @@ public class SyslogEvent {
     }
     @Override
     public String toString() {
-        return "SyslogEvent: " + getDate() + " " + getPriority() + " " + getSeverity() + " " + getMessage() + " " +
-                getSrc() + " " + getSrc_port() + " " + getDst() + " " + getDst_port() ;
+        return "SyslogEvent: " + getDate() + " " + getUser() +  " " + getMessage() + " " +
+                getSrc() + " " + getDst_port() + " " + getEventID();
+    }
+
+    public void setSeverity(int severity) {
+        this.severity = severity;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public int getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
     }
 
     public String getOriginalMessage() {

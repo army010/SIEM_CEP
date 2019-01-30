@@ -2,7 +2,7 @@ package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
-import com.task.cep.handler.EventListener;
+import com.task.cep.handler.*;
 
 /**
  * Just a convenience interface to let us easily contain the Esper statements with the Subscribers -
@@ -16,7 +16,7 @@ public interface StatementSubscriber {
      */
     String getStatement();
 
-    void schemaCreationEvent(EPAdministrator admin);
-
     void addListener(EventListener eventListener, EPStatement statement);
+
+    void addListener(EventListener2 eventListener, EPStatement statement);
 }

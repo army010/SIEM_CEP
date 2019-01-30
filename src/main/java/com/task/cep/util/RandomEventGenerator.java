@@ -38,6 +38,9 @@ public class RandomEventGenerator {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
 
+
+
+
         xrayExecutor.submit(new Runnable() {
             public void run() {
 
@@ -45,13 +48,39 @@ public class RandomEventGenerator {
 
                 int count = 0;
 
+                Random r = new Random();
+                int low = 10;
+                int high = 100;
+                int port;
+                String[] marker = {"m1", "m2", "m3"};
+                String[] src = {"192.168.1.103", "192.107.1.205", "172.168.2.205"};
+                String[] dst = {"192.168.1.105", "192.107.1.204", "172.168.2.200"};
+                String[] user = {"yx349", "ao456", "ku565"};
+                String[] msglogin = {"An account was successfully logged on", "An Account failed to Log on"};
+
+
                 while (count < noOfEvents) {
 
-                    SyslogEvent log = new SyslogEvent(3, 2, "Login Failed", 20181205, "10.2.38.2", "10.2.52.6", "Alert", 389, 53313);
-                    eventHandler.handle(log);
-                    SyslogEvent log2 = new SyslogEvent(3, 2, "Login Successful", 20181205, "10.2.38.10", "10.2.12.65", "Alert", 389, 53313);
-                    eventHandler.handle(log2);
+                /*   SyslogEvent log1 = new SyslogEvent(user[r.nextInt(user.length)], msglogin[r.nextInt(msglogin.length)], 20190112, src[r.nextInt(src.length)], 4625);
+                   eventHandler.handle(log1);
 
+
+                   if (count%35 == 0) {
+                       SyslogEvent log2 = new SyslogEvent(user[r.nextInt(user.length)], "Special privileges assigned to new logon", 20190112, src[r.nextInt(src.length)], 4672);
+                       eventHandler.handle(log2);
+                   }
+
+                    //SSH Logs
+                   SyslogEvent log3 = new SyslogEvent(user[r.nextInt(user.length)], "Failed Password", 20190112, src[r.nextInt(src.length)],
+                           dst[r.nextInt(dst.length)], 22);
+                   eventHandler.handle(log3);
+
+
+                    port = r.nextInt(high-low) + low;
+
+                   IPlogEvent log = new IPlogEvent(src[r.nextInt(src.length)],dst[r.nextInt(dst.length)],port, marker[r.nextInt(marker.length)]);
+                   eventHandler.handle(log);
+*/
                     count++;
 
                     try {
