@@ -86,11 +86,15 @@ public class EventHandler implements InitializingBean {
         epService.getEPRuntime().sendEvent(log);
     }
 
-    public void handleAuthlog(List<AuthenticationLogEvent> log)
+    public void handleAuthlog(AuthenticationLogEvent log)
     {
        LOG.debug(log.toString());
+        try{
+            epService.getEPRuntime().sendEvent(log);}
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
 
-       epService.getEPRuntime().sendEvent(log);
     }
 
     public void handleServerlog(List<ServerLogEvent> log)

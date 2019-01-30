@@ -46,9 +46,10 @@ public class AuthenticationLogRoute {
         EventHandler evnthndlr = new EventHandler();
         // Deserialise JSON message
         ObjectMapper mapper = new ObjectMapper();
-        List<AuthenticationLogEvent> authLogObjects = mapper.readValue(messageAsJSONstring, new TypeReference<List<AuthenticationLogEvent>>() {});
+        AuthenticationLogEvent[] authLogObjects = mapper.readValue(messageAsJSONstring, AuthenticationLogEvent[].class);
         System.out.println("Creating Message Object...\n" + authLogObjects);
-        evnthndlr.handleAuthlog(authLogObjects);
+        for(int x=0;  x< authLogObjects.length; x++)
+            evnthndlr.handleAuthlog(authLogObjects[x]);
         return "OK";
     }
 }
