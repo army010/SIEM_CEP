@@ -26,7 +26,7 @@ public class PrivilegeEscSubscriber implements StatementSubscriber {
                 + "       measures A.eventID as a_ID, B.eventID as b_ID, A.src as a_src, B.src as b_src"
                 + "       pattern (A B) "
                 + "       define "
-                + "       A as A.eventID = 4625,"
+                + "       A as A.eventID = 4625"
                 + "       B as B.eventID = 4672 and B.src = prev(B.src, 1) )";
 
         return select;
