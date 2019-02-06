@@ -43,7 +43,7 @@ public class ServerLogRoute {
         ObjectMapper mapper = new ObjectMapper();
         List<ServerLogEvent> serverLogObjects = mapper.readValue(messageAsJSONstring, new TypeReference<List<ServerLogEvent>>() {});
         System.out.println("Creating Message Object...\n" + serverLogObjects);
-        eventHandler.handleServerlog(serverLogObjects);
+       // eventHandler.handleServerlog(serverLogObjects);
         return "OK";
     }
 }

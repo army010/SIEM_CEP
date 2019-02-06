@@ -32,7 +32,7 @@ class StartDemo {
 
         server.start();
 
-        long noOfEvents = 1000;
+        long noOfEvents = 10000;
 
         if (args.length != 1) {
             LOG.debug("No override of number of events detected - defaulting to " + noOfEvents + " events.");
