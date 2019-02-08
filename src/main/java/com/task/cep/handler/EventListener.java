@@ -12,10 +12,10 @@ public class EventListener implements UpdateListener {
             // we don't care about events leaving the window (old events)
             return;
         }
-        log.error("Detect Malware or other Dangerous Virus from computer Or Website.");
+        log.warn("Detect Malware or other Dangerous Virus from computer Or Website.");
         EventBean theEvent = newEvents[0];
 
-        LOG.debug(theEvent.getUnderlying().toString());
+        LOG.info("Received event: " + theEvent.getUnderlying().toString());
 
         //log.debug(theEvent.toString());
       //  LOG.debug("Port Scan Working! / Brute Force Detected!");

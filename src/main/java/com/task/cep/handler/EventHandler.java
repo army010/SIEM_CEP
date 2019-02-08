@@ -1,7 +1,5 @@
 package com.task.cep.handler;
-
 import com.espertech.esper.client.*;
-
 import com.task.cep.event.*;
 import com.task.cep.subscriber.*;
 
@@ -21,7 +19,6 @@ import java.util.List;
 @Component
 @Scope(value = "singleton")
 public class EventHandler implements InitializingBean {
-
 
     /** Logger */
     private static final Logger LOG = LoggerFactory.getLogger(EventHandler.class);
@@ -72,7 +69,9 @@ public class EventHandler implements InitializingBean {
     @Qualifier("symVirusSubscriber")
     private SymVirusSubscriber symVirusSubscriber;
 
-
+    @Autowired
+    @Qualifier("webVirusSubscriber")
+    private WebVirusSubscriber webVirusSubscriber;
 
     /**
      * Configure Esper Statement(s).
@@ -96,16 +95,11 @@ public class EventHandler implements InitializingBean {
        // simpleSelect();
         DDoS();
         portScan();
-
         bruteForce();
         //privilegeEsc();
         sshBruteforce();
-
-        antiVirus();
-
-
-
-
+        symVirus();
+        webVirus();
     }
 
     /**
@@ -118,15 +112,20 @@ public class EventHandler implements InitializingBean {
         //simpleSelectSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(simpleSelectSubscriber);
     }
-    public void antiVirus() {
-        LOG.debug("Detect Malware Virus from the log file .....");
+    public void symVirus() {
+        LOG.info("Detect Malware Virus from the log file .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(symVirusSubscriber.getStatement());
         symVirusSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(symVirusSubscriber);
 
     }
 
-
+    public void webVirus() {
+        LOG.info("Detect Malware Virus from the web .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(webVirusSubscriber.getStatement());
+        webVirusSubscriber.addListener(new EventListener(), statement);
+        statement.setSubscriber(webVirusSubscriber);
+    }
 
     public void portScan(){
         LOG.debug("PortScan.................");
@@ -204,23 +203,16 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().createEPL("create schema BlackList(blacklistedip string)");
         EPStatement statement;
 
-
-
     }
-    public void handle(ViruslogEvent log)
-    {
-      //  LOG.debug(log.toString());
-        epService.getEPRuntime().sendEvent(log);
-    }
-
-
-
-
-
 
     /**
      * Handle the incoming Event.
      */
+    public void handle(ViruslogEvent event)
+    {
+        //  LOG.debug(log.toString());
+        epService.getEPRuntime().sendEvent(event);
+    }
 
     public void handle(SyslogEvent log)
     {
@@ -256,6 +248,5 @@ public class EventHandler implements InitializingBean {
         statement.addListener(listener);
     }
 
-    public void handle(WeblogEvent weblogEvent) {
-    }
+
 }

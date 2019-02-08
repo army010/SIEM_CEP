@@ -2,20 +2,21 @@ package com.task.cep.event;
 
 import java.util.Objects;
 
-public class WeblogEvent {
-    private String time;
-    private String scanner;
-    private String type;
-    private String object;
-    private String threat;
-    private String action;
-    private String user;
-    private String information;
-    private String hash;
+public class BaseLogEvent {
+
+    protected String time;
+    protected String scanner;
+    protected String type;
+    protected String object;
+    protected String threat;
+    protected String action;
+    protected String user;
+    protected String information;
+    protected String hash;
 
     @Override
     public String toString() {
-        return "WeblogEvent{" +
+        return "BaseLogEvent{" +
                 "time='" + time + '\'' +
                 ", scanner='" + scanner + '\'' +
                 ", type='" + type + '\'' +
@@ -31,8 +32,8 @@ public class WeblogEvent {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof WeblogEvent)) return false;
-        WeblogEvent that = (WeblogEvent) o;
+        if (!(o instanceof BaseLogEvent)) return false;
+        BaseLogEvent that = (BaseLogEvent) o;
         return Objects.equals(getTime(), that.getTime()) &&
                 Objects.equals(getScanner(), that.getScanner()) &&
                 Objects.equals(getType(), that.getType()) &&
@@ -47,18 +48,6 @@ public class WeblogEvent {
     @Override
     public int hashCode() {
         return Objects.hash(getTime(), getScanner(), getType(), getObject(), getThreat(), getAction(), getUser(), getInformation(), getHash());
-    }
-
-    public WeblogEvent(String time, String scanner, String type, String object, String threat, String action, String user, String information, String hash) {
-        this.time = time;
-        this.scanner = scanner;
-        this.type = type;
-        this.object = object;
-        this.threat = threat;
-        this.action = action;
-        this.user = user;
-        this.information = information;
-        this.hash = hash;
     }
 
     public String getTime() {
@@ -101,9 +90,6 @@ public class WeblogEvent {
         this.threat = threat;
     }
 
-    public WeblogEvent() {
-    }
-
     public String getAction() {
         return action;
     }
@@ -135,6 +121,4 @@ public class WeblogEvent {
     public void setHash(String hash) {
         this.hash = hash;
     }
-
-
 }

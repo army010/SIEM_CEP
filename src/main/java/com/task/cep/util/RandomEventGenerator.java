@@ -31,32 +31,43 @@ public class RandomEventGenerator {
     /**
      * Creates simple random events and lets the implementation class handle them.
      */
-    public void run()
-    {
-        LOG.debug(getStartingMessage());
-        JsonFileParser parser = new JsonFileParser();
-        List<ViruslogEvent> weblogEventList;
-        List<ViruslogEvent> symlogEventList;
-     try {
-            weblogEventList = parser.getWebEvents();
-            symlogEventList = parser.getSymEvents();
-            callhandle(weblogEventList);
-            callhandle(symlogEventList);
 
+    public void startSendingEventReadingsVirus()  {
+        ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
+        xrayExecutor.submit(new Runnable() {
+            public void run() {
+                LOG.debug(getStartingMessage());
+                JsonFileParser parser = new JsonFileParser();
+                List<ViruslogEvent> weblogEventList;
+                List<ViruslogEvent> symlogEventList;
 
-        } catch (IOException e) {
-            LOG.error("Jsonparser got an error", e);
-        }
+                 try {
+                     weblogEventList = parser.getWebEvents();
+                     symlogEventList = parser.getSymEvents();
+                     for (ViruslogEvent event : weblogEventList) {
+                         Thread.sleep(2000);
+                         eventHandler.handle(event);
+                     }
 
+                     for (ViruslogEvent event : symlogEventList) {
+                         Thread.sleep(2000);
+                         eventHandler.handle(event);
+                     }
 
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                     LOG.error("Jsonparser got an error", e);
+                 } catch (InterruptedException e) {
+                     e.printStackTrace();
+                     LOG.error("Thread Interrupted", e);
+                 }
+
+            }
+        });
     }
-
-
     public void startSendingEventReadings(final long noOfEvents) {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
-
-
 
 
         xrayExecutor.submit(new Runnable() {
@@ -116,12 +127,6 @@ public class RandomEventGenerator {
         });
     }
 
-    private void callhandle(List<ViruslogEvent> logEvents) {
-        for (ViruslogEvent event : logEvents) {
-            eventHandler.handle(new ViruslogEvent(event.getTime(),event.getScanner(),event.getType(),event.getObject(),event.getThreat(),event.getAction(),event.getUser(),event.getInformation(),event.getHash()));
-
-        }
-    }
 
 
 
