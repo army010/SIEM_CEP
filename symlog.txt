@@ -1,0 +1,101 @@
+[
+ {
+   "time": "24.01.2019 11:17:50",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/bade8746-5b2c-4062-9a95-7bff6ce79a53.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "BEC1B52D350D721C7E22A6D4BB0A92909893A3AE"
+ },
+ {
+   "time": "24.01.2019 11:27:38",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/2a6e7b4d-6cae-4941-8e0a-8feb8ef4bedf.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application:C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "BEC1B52D350D721C7E22A6D4BB0A92909893A3AE"
+ },
+ {
+   "time": "24.01.2019 11:27:41",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/67e72f30-5f07-47a2-b8f7-ae55072469c3.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "BEC1B52D350D721C7E22A6D4BB0A92909893A3AE"
+ },
+ {
+   "time": "24.01.2019 11:29:46",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/867f0aa7-600a-4ddc-ae19-ecf4c8c02cf3.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "D27265074C9EAC2E2122ED69294DBC4D7CCE9141"
+ },
+ {
+   "time": "24.01.2019 11:30:52",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/c798bf5d-04bf-4470-b915-3c067ea97022.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "BEC1B52D350D721C7E22A6D4BB0A92909893A3AE"
+ },
+ {
+   "time": "24.01.2019 11:32:00",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/3ca4bd83-e3fe-4861-9834-05fb0a454ad5.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application:C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "D27265074C9EAC2E2122ED69294DBC4D7CCE9141"
+ },
+ {
+   "time": "24.01.2019 11:32:25",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/f51b71fa-8394-465a-90a4-f18377866be5.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "D27265074C9EAC2E2122ED69294DBC4D7CCE9141"
+ },
+ {
+   "time": "24.01.2019 11:33:15",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/872bf3f0-6db4-4290-bf5a-fc0871eebb8a.tmp",
+   "threat": "Eicar test file",
+   "action": "not deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "D27265074C9EAC2E2122ED69294DBC4D7CCE9141"
+ },
+ {
+   "time": "24.01.2019 11:35:19",
+   "scanner": "Real-time file system protection",
+   "type": "file",
+   "object": "C://users/Pooja Patel/Downloads/8723e992-399d-42eb-aa3b-e2d091504826.tmp",
+   "threat": "Eicar test file",
+   "action": "deleted",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "Event occurred on a file modified by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "BEC1B52D350D721C7E22A6D4BB0A92909893A3AE"
+ }
+]

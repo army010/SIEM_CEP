@@ -1,12 +1,10 @@
 package com.task.cep;
 
-import com.sun.net.httpserver.HttpServer;
+import com.task.cep.util.RandomEventGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.sun.jersey.api.container.httpserver.HttpServerFactory;
-import com.task.cep.util.RandomEventGenerator;
 
 import java.io.IOException;
 
@@ -28,9 +26,7 @@ class StartDemo {
 
         LOG.debug("Starting...");
 
-        HttpServer server = HttpServerFactory.create("http://localhost:8080/api");
 
-        server.start();
 
         long noOfEvents = 10000;
 
@@ -45,7 +41,7 @@ class StartDemo {
         // Start Demo
         RandomEventGenerator generator = (RandomEventGenerator) ((BeanFactory) new ClassPathXmlApplicationContext(new String[]{"application-context.xml"})).getBean("eventGenerator");
         generator.startSendingEventReadings(noOfEvents);
-
+        generator.run();
     }
 
 }

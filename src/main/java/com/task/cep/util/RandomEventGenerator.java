@@ -1,21 +1,18 @@
 package com.task.cep.util;
 
-import static java.lang.System.*;
-import java.util.Scanner;
-
-import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
+import com.task.cep.event.ViruslogEvent;
+import com.task.cep.handler.EventHandler;
+import com.task.cep.handler.JsonFileParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.task.cep.event.*;
-
-import com.task.cep.handler.EventHandler;
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Just a simple class to create a number of Random Events and pass them off to the
@@ -34,6 +31,27 @@ public class RandomEventGenerator {
     /**
      * Creates simple random events and lets the implementation class handle them.
      */
+    public void run()
+    {
+        LOG.debug(getStartingMessage());
+        JsonFileParser parser = new JsonFileParser();
+        List<ViruslogEvent> weblogEventList;
+        List<ViruslogEvent> symlogEventList;
+     try {
+            weblogEventList = parser.getWebEvents();
+            symlogEventList = parser.getSymEvents();
+            callhandle(weblogEventList);
+            callhandle(symlogEventList);
+
+
+        } catch (IOException e) {
+            LOG.error("Jsonparser got an error", e);
+        }
+
+
+    }
+
+
     public void startSendingEventReadings(final long noOfEvents) {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
@@ -83,7 +101,7 @@ public class RandomEventGenerator {
 
 
                     // Following Code is in relation to DDoS Attack
-                    makeDdosAttack(count);
+
                     count++;
 
                     try {
@@ -98,45 +116,14 @@ public class RandomEventGenerator {
         });
     }
 
-    public void makeDdosAttack(int count){
-        ServerLogEvent log2  = new ServerLogEvent("","192.168.1.103","","","","","","","","","","","","");
-        eventHandler.handleServerlog(log2);
-        ServerLogEvent log4  = new ServerLogEvent("","192.107.1.205","","","","","","","","","","","","");
-        ServerLogEvent log5  = new ServerLogEvent("","192.107.1.206","","","","","","","","","","","","");
-        ServerLogEvent log6  = new ServerLogEvent("","192.107.1.207","","","","","","","","","","","","");
-        ServerLogEvent log7  = new ServerLogEvent("","192.107.1.208","","","","","","","","","","","","");
-        ServerLogEvent log3  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
-        ServerLogEvent log8  = new ServerLogEvent("","192.107.1.205","","","","","","","","","","","","");
-        ServerLogEvent log9  = new ServerLogEvent("","192.107.1.206","","","","","","","","","","","","");
-        ServerLogEvent log10  = new ServerLogEvent("","192.107.1.207","","","","","","","","","","","","");
-        ServerLogEvent log11  = new ServerLogEvent("","192.107.1.208","","","","","","","","","","","","");
-        ServerLogEvent log12  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
-        ServerLogEvent log13  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
-        ServerLogEvent log14  = new ServerLogEvent("","192.107.1.205","","","","","","","","","","","","");
-        ServerLogEvent log15 = new ServerLogEvent("","192.107.1.206","","","","","","","","","","","","");
-        ServerLogEvent log16  = new ServerLogEvent("","192.107.1.207","","","","","","","","","","","","");
-        ServerLogEvent log17  = new ServerLogEvent("","192.107.1.208","","","","","","","","","","","","");
-        ServerLogEvent log18  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
+    private void callhandle(List<ViruslogEvent> logEvents) {
+        for (ViruslogEvent event : logEvents) {
+            eventHandler.handle(new ViruslogEvent(event.getTime(),event.getScanner(),event.getType(),event.getObject(),event.getThreat(),event.getAction(),event.getUser(),event.getInformation(),event.getHash()));
 
-        eventHandler.handleServerlog(log3);
-        eventHandler.handleServerlog(log4);
-        eventHandler.handleServerlog(log5);
-        eventHandler.handleServerlog(log6);
-        eventHandler.handleServerlog(log7);
-        eventHandler.handleServerlog(log8);
-        eventHandler.handleServerlog(log9);
-        eventHandler.handleServerlog(log10);
-        eventHandler.handleServerlog(log11);
-        eventHandler.handleServerlog(log12);
-        eventHandler.handleServerlog(log13);
-        eventHandler.handleServerlog(log14);
-        eventHandler.handleServerlog(log15);
-        eventHandler.handleServerlog(log16);
-        eventHandler.handleServerlog(log17);
-        eventHandler.handleServerlog(log18);
-
-
+        }
     }
+
+
 
     private String getStartingMessage(){
         return "\n\n************************************************************" +

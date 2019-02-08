@@ -1,7 +1,6 @@
 package com.task.cep.subscriber;
 
 
-import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
 import com.task.cep.event.SyslogEvent;
 import com.task.cep.handler.EventListener;
