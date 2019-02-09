@@ -119,10 +119,10 @@ public class RandomEventGenerator {
                    eventHandler.handle(log3);
 
 
-//                    port = r.nextInt(high-low) + low;
-//
-//                   IPlogEvent log = new IPlogEvent(src[r.nextInt(src.length)],dst[r.nextInt(dst.length)],port, marker[r.nextInt(marker.length)]);
-//                   eventHandler.handle(log);
+                   port = r.nextInt(high-low) + low;
+
+                   IPlogEvent log = new IPlogEvent(src[r.nextInt(src.length)],dst[r.nextInt(dst.length)],port, marker[r.nextInt(marker.length)]);
+                   eventHandler.handle(log);
 
 
                     // Following Code is in relation to DDoS Attack

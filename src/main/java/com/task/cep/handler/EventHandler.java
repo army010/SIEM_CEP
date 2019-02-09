@@ -167,7 +167,7 @@ public class EventHandler implements InitializingBean {
         portScan();
 
         bruteForce();
-        //privilegeEsc();
+        privilegeEsc();
         sshBruteforce();
         symVirus();
         webVirus();
