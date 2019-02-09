@@ -1,6 +1,8 @@
 package com.task.cep.util;
 
 import static java.lang.System.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.util.Date;
@@ -12,6 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.task.cep.event.SymlogEvent;
+import com.task.cep.event.WeblogEvent;
+import com.task.cep.handler.EventHandler;
+import com.task.cep.handler.JsonFileParser;
+import java.io.IOException;
+import java.util.List;
+
 
 import com.task.cep.event.*;
 
@@ -34,6 +43,40 @@ public class RandomEventGenerator {
     /**
      * Creates simple random events and lets the implementation class handle them.
      */
+    public void startSendingEventReadingsVirus()  {
+        ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
+        xrayExecutor.submit(new Runnable() {
+            public void run() {
+                LOG.debug(getStartingMessage());
+                JsonFileParser parser = new JsonFileParser();
+                List<WeblogEvent> weblogEventList;
+                List<SymlogEvent> symlogEventList;
+
+                try {
+                    weblogEventList = parser.getWebEvents();
+                    symlogEventList = parser.getSymEvents();
+                    for (WeblogEvent event : weblogEventList) {
+                        Thread.sleep(200);
+                        eventHandler.handle(event);
+                    }
+
+                    for (SymlogEvent event : symlogEventList) {
+                        Thread.sleep(2000);
+                        eventHandler.handle(event);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    LOG.error("Jsonparser got an error", e);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    LOG.error("Thread Interrupted", e);
+                }
+
+            }
+        });
+    }
+
     public void startSendingEventReadings(final long noOfEvents) {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
@@ -76,11 +119,14 @@ public class RandomEventGenerator {
                    eventHandler.handle(log3);
 
 
-                    port = r.nextInt(high-low) + low;
+//                    port = r.nextInt(high-low) + low;
+//
+//                   IPlogEvent log = new IPlogEvent(src[r.nextInt(src.length)],dst[r.nextInt(dst.length)],port, marker[r.nextInt(marker.length)]);
+//                   eventHandler.handle(log);
 
-                   IPlogEvent log = new IPlogEvent(src[r.nextInt(src.length)],dst[r.nextInt(dst.length)],port, marker[r.nextInt(marker.length)]);
-                   eventHandler.handle(log);
 
+                    // Following Code is in relation to DDoS Attack
+                    makeDdosAttack(count);
                     count++;
 
                     try {
@@ -93,6 +139,46 @@ public class RandomEventGenerator {
 
             }
         });
+    }
+
+    public void makeDdosAttack(int count){
+        ServerLogEvent log2  = new ServerLogEvent("","192.168.1.103","","","","","","","","","","","","");
+        eventHandler.handleServerlog(log2);
+        ServerLogEvent log4  = new ServerLogEvent("","192.107.1.205","","","","","","","","","","","","");
+        ServerLogEvent log5  = new ServerLogEvent("","192.107.1.206","","","","","","","","","","","","");
+        ServerLogEvent log6  = new ServerLogEvent("","192.107.1.207","","","","","","","","","","","","");
+        ServerLogEvent log7  = new ServerLogEvent("","192.107.1.208","","","","","","","","","","","","");
+        ServerLogEvent log3  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
+        ServerLogEvent log8  = new ServerLogEvent("","192.107.1.205","","","","","","","","","","","","");
+        ServerLogEvent log9  = new ServerLogEvent("","192.107.1.206","","","","","","","","","","","","");
+        ServerLogEvent log10  = new ServerLogEvent("","192.107.1.207","","","","","","","","","","","","");
+        ServerLogEvent log11  = new ServerLogEvent("","192.107.1.208","","","","","","","","","","","","");
+        ServerLogEvent log12  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
+        ServerLogEvent log13  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
+        ServerLogEvent log14  = new ServerLogEvent("","192.107.1.205","","","","","","","","","","","","");
+        ServerLogEvent log15 = new ServerLogEvent("","192.107.1.206","","","","","","","","","","","","");
+        ServerLogEvent log16  = new ServerLogEvent("","192.107.1.207","","","","","","","","","","","","");
+        ServerLogEvent log17  = new ServerLogEvent("","192.107.1.208","","","","","","","","","","","","");
+        ServerLogEvent log18  = new ServerLogEvent("","192.107.1.204","","","","","","","","","","","","");
+
+        eventHandler.handleServerlog(log3);
+        eventHandler.handleServerlog(log4);
+        eventHandler.handleServerlog(log5);
+        eventHandler.handleServerlog(log6);
+        eventHandler.handleServerlog(log7);
+        eventHandler.handleServerlog(log8);
+        eventHandler.handleServerlog(log9);
+        eventHandler.handleServerlog(log10);
+        eventHandler.handleServerlog(log11);
+        eventHandler.handleServerlog(log12);
+        eventHandler.handleServerlog(log13);
+        eventHandler.handleServerlog(log14);
+        eventHandler.handleServerlog(log15);
+        eventHandler.handleServerlog(log16);
+        eventHandler.handleServerlog(log17);
+        eventHandler.handleServerlog(log18);
+
+
     }
 
     private String getStartingMessage(){

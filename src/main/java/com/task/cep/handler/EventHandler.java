@@ -4,6 +4,7 @@ import com.espertech.esper.client.*;
 
 import com.task.cep.event.*;
 import com.task.cep.subscriber.*;
+import com.task.cep.subscriber.dDosSubscribers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 import com.espertech.esper.client.EPStatement;
 import com.espertech.esper.client.UpdateListener;
 import java.util.List;
-import java.util.Random;
 
 @Component
 @Scope(value = "singleton")
@@ -68,8 +68,78 @@ public class EventHandler implements InitializingBean {
     @Qualifier("sshBruteForceSubscriber")
     private SshBruteForceSubscriber sshBruteForceSubscriber;
 
+    @Autowired
+    @Qualifier("incomingIPConnectionQuery")
+    private IncomingIPConnectionQuery incomingIPConnectionQuery;
+
+    @Autowired
+    @Qualifier("connectionCountQuery")
+    private ConnectionCountQuery connectionCountQuery;
+
+    @Autowired
+    @Qualifier("IPConnectionCountQuery")
+    private IPConnectionCountQuery iPConnectionCountQuery;
+
+    @Autowired
+    @Qualifier("summedConnectionCountQuery")
+    private SummedConnectionCountQuery summedConnectionCountQuery;
+
+    @Autowired
+    @Qualifier("firstWeigthedMeanQuery")
+    private FirstWeigthedMeanQuery firstWeigthedMeanQuery;
+
+    @Autowired
+    @Qualifier("weigthedMeanQuery")
+    private WeigthedMeanQuery weigthedMeanQuery;
+
+    @Autowired
+    @Qualifier("testSubscriber")
+    private TestSubscriber testSubscriber;
+
+    @Autowired
+    @Qualifier("forecastedErrorQuery")
+    private ForecastedErrorQuery forecastedErrorQuery;
+
+    @Autowired
+    @Qualifier("stddevErrorQuery")
+    private StddevErrorQuery stddevErrorQuery;
+
+    @Autowired
+    @Qualifier("upperTresholdQuery")
+    private UpperTresholdQuery upperTresholdQuery;
+
+    @Autowired
+    @Qualifier("firstCusumSumQuery")
+    private FirstCusumSumQuery firstCusumSumQuery;
+
+    @Autowired
+    @Qualifier("cusumSumQuery")
+    private CusumSumQuery cusumSumQuery;
+
+    @Autowired
+    @Qualifier("cusumTresholdQuery")
+    private CusumTresholdQuery cusumTresholdQuery;
+
+    @Autowired
+    @Qualifier("DDOSAlarmQuery")
+    private DDOSAlarmQuery ddosAlarmQuery;
+
+    @Autowired
+    @Qualifier("IPConnectionSumQuery")
+    private IPConnectionSumQuery ipConnectionSumQuery;
+
+    @Autowired
+    @Qualifier("blackListQuery")
+    private BlackListQuery blackListQuery;
 
 
+    @Autowired
+    @Qualifier("symVirusSubscriber")
+    private SymVirusSubscriber symVirusSubscriber;
+
+    @Autowired
+    @Qualifier("webVirusSubscriber")
+    private WebVirusSubscriber webVirusSubscriber;
 
     /**
      * Configure Esper Statement(s).
@@ -88,16 +158,19 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(IPlogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(SyslogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(AlertBucket.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(ServerLogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(SymlogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(WeblogEvent.class);
 
-       // simpleSelect();
+        // simpleSelect();
+        DDoS();
         portScan();
 
         bruteForce();
-        privilegeEsc();
+        //privilegeEsc();
         sshBruteforce();
-
-
-
+        symVirus();
+        webVirus();
 
     }
 
@@ -110,6 +183,20 @@ public class EventHandler implements InitializingBean {
         EPStatement statement = epService.getEPAdministrator().createEPL(simpleSelectSubscriber.getStatement());
         //simpleSelectSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(simpleSelectSubscriber);
+    }
+    public void symVirus() {
+        LOG.info("Detect Malware Virus from the log file .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(symVirusSubscriber.getStatement());
+        symVirusSubscriber.addListener(new EventListener(), statement);
+        statement.setSubscriber(symVirusSubscriber);
+
+    }
+
+    public void webVirus() {
+        LOG.info("Detect Malware Virus from the web .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(webVirusSubscriber.getStatement());
+        webVirusSubscriber.addListener(new EventListener(), statement);
+        statement.setSubscriber(webVirusSubscriber);
     }
 
     public void portScan(){
@@ -165,6 +252,82 @@ public class EventHandler implements InitializingBean {
         statement.setSubscriber(sshBruteForceSubscriber);
     }
 
+    public void DDoS(){
+        LOG.debug("DDoS Attack .....");
+        String EPLSChemaQueries = "create schema IncomingIPConnection(incomingip string); " +
+                "create schema ConnectionCount(value int);" +
+                "create schema IPConnectionCount(incomingip string, value int);" +
+                "create schema SummedConnectionCount(value int);" +
+                "create schema weigthedMean(value double);";
+
+        epService.getEPAdministrator().createEPL("create schema IncomingIPConnection(incomingip string)");
+        epService.getEPAdministrator().createEPL("create schema ConnectionCount(value long)");
+        epService.getEPAdministrator().createEPL("create schema IPConnectionCount(incomingip string, value long)");
+        epService.getEPAdministrator().createEPL("create schema SummedConnectionCount(value long)");
+        epService.getEPAdministrator().createEPL("create schema weigthedMean(value double)");
+        epService.getEPAdministrator().createEPL("create schema forecastedError(value double)");
+        epService.getEPAdministrator().createEPL("create schema stddevError(value double)");
+        epService.getEPAdministrator().createEPL("create schema upperTreshold(value double,std_dev double, mean double)");
+        epService.getEPAdministrator().createEPL("create schema cusumSum(value double, currValue double, prevSum double, upTreshold double)");
+        epService.getEPAdministrator().createEPL("create schema cusumTreshold(value double)");
+        epService.getEPAdministrator().createEPL("create schema DDOSAlarm(value double)");
+        epService.getEPAdministrator().createEPL("create schema SummedIPConnectionCount(incomingip string, value double)");
+        epService.getEPAdministrator().createEPL("create schema BlackList(blacklistedip string)");
+        EPStatement statement;
+
+        statement = epService.getEPAdministrator().createEPL(incomingIPConnectionQuery.getStatement());
+        statement.setSubscriber(incomingIPConnectionQuery);
+
+        statement = epService.getEPAdministrator().createEPL(connectionCountQuery.getStatement());
+        statement.setSubscriber(connectionCountQuery);
+
+        statement = epService.getEPAdministrator().createEPL(iPConnectionCountQuery.getStatement());
+        statement.setSubscriber(iPConnectionCountQuery);
+
+        statement = epService.getEPAdministrator().createEPL(summedConnectionCountQuery.getStatement());
+        statement.setSubscriber(summedConnectionCountQuery);
+
+        statement = epService.getEPAdministrator().createEPL(firstWeigthedMeanQuery.getStatement());
+        statement.setSubscriber(iPConnectionCountQuery);
+
+        statement = epService.getEPAdministrator().createEPL(weigthedMeanQuery.getStatement());
+        statement.setSubscriber(weigthedMeanQuery);
+
+        statement = epService.getEPAdministrator().createEPL(forecastedErrorQuery.getStatement());
+        statement.setSubscriber(forecastedErrorQuery);
+
+        statement = epService.getEPAdministrator().createEPL(stddevErrorQuery.getStatement());
+        statement.setSubscriber(stddevErrorQuery);
+
+        statement = epService.getEPAdministrator().createEPL(upperTresholdQuery.getStatement());
+        statement.setSubscriber(upperTresholdQuery);
+
+        statement = epService.getEPAdministrator().createEPL(firstCusumSumQuery.getStatement());
+        statement.setSubscriber(firstCusumSumQuery);
+
+        statement = epService.getEPAdministrator().createEPL(cusumSumQuery.getStatement());
+        statement.setSubscriber(cusumSumQuery);
+
+        statement = epService.getEPAdministrator().createEPL(cusumTresholdQuery.getStatement());
+        statement.setSubscriber(cusumTresholdQuery);
+
+        statement = epService.getEPAdministrator().createEPL(ddosAlarmQuery.getStatement());
+        statement.setSubscriber(ddosAlarmQuery);
+
+        statement = epService.getEPAdministrator().createEPL(ipConnectionSumQuery.getStatement());
+        statement.setSubscriber(ipConnectionSumQuery);
+
+        statement = epService.getEPAdministrator().createEPL(blackListQuery.getStatement());
+        statement.setSubscriber(blackListQuery);
+
+
+
+        statement = epService.getEPAdministrator().createEPL(testSubscriber.getStatement());
+        testSubscriber.addListener(new DDOSListener(), statement);
+        statement.setSubscriber(testSubscriber);
+
+    }
+
 
 
 
@@ -172,6 +335,12 @@ public class EventHandler implements InitializingBean {
     /**
      * Handle the incoming Event.
      */
+
+    public void handle(SymlogEvent event)
+    {
+        //  LOG.debug(log.toString());
+        epService.getEPRuntime().sendEvent(event);
+    }
 
     public void handle(SyslogEvent log)
     {
@@ -194,11 +363,11 @@ public class EventHandler implements InitializingBean {
        epService.getEPRuntime().sendEvent(log);
     }
 
-    public void handleServerlog(List<ServerLogEvent> log)
+    public void handleServerlog(ServerLogEvent log)
     {
         // LOG.debug(log.toString());
 
-        // epService.getEPRuntime().sendEvent(log);
+         epService.getEPRuntime().sendEvent(log);
     }
 
     public void handleSyslog(List<SyslogEvent> log)
@@ -213,6 +382,11 @@ public class EventHandler implements InitializingBean {
 
         LOG.debug("Configuring..");
         initService();
+    }
+
+    public void handle(WeblogEvent event) {
+        //  LOG.debug(log.toString());
+        epService.getEPRuntime().sendEvent(event);
     }
 
     public void addListener(UpdateListener listener, EPStatement statement) {
