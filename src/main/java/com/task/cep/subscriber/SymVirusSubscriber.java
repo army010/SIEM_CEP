@@ -20,7 +20,7 @@ public class SymVirusSubscriber implements StatementSubscriber {
   //   String logComplexQuery = "select * from SymlogEvent((type = 'file' AND (action = 'connection not terminated' OR action = 'not deleted') AND information LIKE 'threat was detected %')) having count(*) > 0";
         String logComplexQuery = "insert into BaseLogEvent(type,time,user,scanner,object,threat,action,information,hash,ipaddress) "+
                                  "select type,time,user,scanner,object,threat,action,information,hash,ipaddress "+
-                                 "from SymlogEvent((type = 'file' AND (action = 'connection not terminated' OR action = 'not deleted') AND information LIKE 'threat was detected %')) having count(*) > 0";
+                                 "from SymlogEvent((type = 'file' AND action = 'not deleted' AND information LIKE 'threat was detected %')) having count(*) > 0";
 
 
         //  String logComplexQuery = "select * from ViruslogEvent.win:expr_batch(current_count >= 1)";

@@ -141,6 +141,12 @@ public class EventHandler implements InitializingBean {
     @Qualifier("webVirusSubscriber")
     private WebVirusSubscriber webVirusSubscriber;
 
+//    @Autowired
+//    @Qualifier("multipleAntivirusSubscriber")
+//    private MultipleAntivirusSubscriber multipleAntivirusSubscriber;
+
+
+
     /**
      * Configure Esper Statement(s).
      */
@@ -172,6 +178,7 @@ public class EventHandler implements InitializingBean {
         sshBruteforce();
         symVirus();
         webVirus();
+       // multipleAntivirus();
 
     }
 
@@ -199,6 +206,12 @@ public class EventHandler implements InitializingBean {
         webVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(webVirusSubscriber);
     }
+//    public void multipleAntivirus() {
+//        LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
+//        EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
+//        multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
+//        statement.setSubscriber(multipleAntivirusSubscriber);
+//    }
 
     public void portScan(){
         LOG.debug("PortScan.................");
