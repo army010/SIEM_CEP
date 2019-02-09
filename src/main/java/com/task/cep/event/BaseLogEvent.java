@@ -13,6 +13,7 @@ public class BaseLogEvent {
     protected String user;
     protected String information;
     protected String hash;
+    protected String ipaddress;
 
     @Override
     public String toString() {
@@ -26,6 +27,7 @@ public class BaseLogEvent {
                 ", user='" + user + '\'' +
                 ", information='" + information + '\'' +
                 ", hash='" + hash + '\'' +
+                ", ipaddress='" + ipaddress + '\'' +
                 '}';
     }
 
@@ -42,12 +44,21 @@ public class BaseLogEvent {
                 Objects.equals(getAction(), that.getAction()) &&
                 Objects.equals(getUser(), that.getUser()) &&
                 Objects.equals(getInformation(), that.getInformation()) &&
-                Objects.equals(getHash(), that.getHash());
+                Objects.equals(getHash(), that.getHash())&&
+                Objects.equals(getIpaddress(), that.getIpaddress());
+    }
+
+    public String getIpaddress() {
+        return ipaddress;
+    }
+
+    public void setIpaddress(String ipaddress) {
+        this.ipaddress = ipaddress;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTime(), getScanner(), getType(), getObject(), getThreat(), getAction(), getUser(), getInformation(), getHash());
+        return Objects.hash(getTime(), getScanner(), getType(), getObject(), getThreat(), getAction(), getUser(), getInformation(), getHash(),getIpaddress());
     }
 
     public String getTime() {

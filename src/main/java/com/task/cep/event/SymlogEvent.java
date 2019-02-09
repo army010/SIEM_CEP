@@ -15,6 +15,7 @@ public class SymlogEvent extends BaseLogEvent {
                 ", user='" + user + '\'' +
                 ", information='" + information + '\'' +
                 ", hash='" + hash + '\'' +
+                ", ipaddress='" + ipaddress + '\'' +
                 '}';
     }
 }
