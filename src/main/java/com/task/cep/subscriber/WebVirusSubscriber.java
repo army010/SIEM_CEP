@@ -1,13 +1,16 @@
 package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPStatement;
+import com.task.cep.handler.AntiVirusListener;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import com.task.cep.event.WeblogEvent;
+import com.task.cep.event.BaseLogEvent;
 import java.util.Map;
+import com.task.cep.event.AlertBucket;
 
 @Component
 public class WebVirusSubscriber implements StatementSubscriber {
@@ -15,7 +18,9 @@ public class WebVirusSubscriber implements StatementSubscriber {
     private static final Logger LOG = LoggerFactory.getLogger(WebVirusSubscriber.class);
 
     public String getStatement() {
-        String logComplexQuery = "select * from WeblogEvent((type = 'file' AND action = 'connection not terminated'  AND information LIKE 'threat was detected %')) having count(*) > 0";
+        String logComplexQuery = "insert into BaseLogEvent(type,time,user,scanner,object,threat,action,information,hash,ipaddress) "+
+                                 "select type,time,user,scanner,object,threat,action,information,hash,ipaddress "+
+                                 "from WeblogEvent((type = 'file' AND action = 'connection not terminated'  AND information LIKE 'threat was detected %')) having count(*) > 0";
 
         //  String logComplexQuery = "select * from ViruslogEvent.win:expr_batch(current_count >= 1)";
         return logComplexQuery;
@@ -23,7 +28,7 @@ public class WebVirusSubscriber implements StatementSubscriber {
 
     @Override
     public void addListener(EventListener eventListener, EPStatement statement) {
-        statement.addListener(eventListener);
+       // statement.addListener(eventListener);
     }
 
     @Override
@@ -35,4 +40,7 @@ public class WebVirusSubscriber implements StatementSubscriber {
     // required by springframe work
     }
 
+    public void addListener(AntiVirusListener antiVirusListener, EPStatement statement) {
+        statement.addListener(antiVirusListener);
+    }
 }

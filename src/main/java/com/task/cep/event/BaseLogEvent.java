@@ -17,7 +17,7 @@ public class BaseLogEvent {
 
     @Override
     public String toString() {
-        return "BaseLogEvent{" +
+        return "Antivirus  Alert Triggered ::" +
                 "time='" + time + '\'' +
                 ", scanner='" + scanner + '\'' +
                 ", type='" + type + '\'' +
@@ -27,8 +27,7 @@ public class BaseLogEvent {
                 ", user='" + user + '\'' +
                 ", information='" + information + '\'' +
                 ", hash='" + hash + '\'' +
-                ", ipaddress='" + ipaddress + '\'' +
-                '}';
+                ", ipaddress='" + ipaddress + '\'';
     }
 
     @Override

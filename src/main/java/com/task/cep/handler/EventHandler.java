@@ -161,6 +161,7 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(ServerLogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(SymlogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(WeblogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(BaseLogEvent.class);
 
         // simpleSelect();
         DDoS();
@@ -187,7 +188,7 @@ public class EventHandler implements InitializingBean {
     public void symVirus() {
         LOG.info("Detect Malware Virus from the log file .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(symVirusSubscriber.getStatement());
-        symVirusSubscriber.addListener(new EventListener(), statement);
+        symVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(symVirusSubscriber);
 
     }
@@ -195,7 +196,7 @@ public class EventHandler implements InitializingBean {
     public void webVirus() {
         LOG.info("Detect Malware Virus from the web .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(webVirusSubscriber.getStatement());
-        webVirusSubscriber.addListener(new EventListener(), statement);
+        webVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(webVirusSubscriber);
     }
 
