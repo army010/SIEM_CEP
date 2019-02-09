@@ -61,7 +61,7 @@ public class RandomEventGenerator {
 
                 while (count < noOfEvents) {
 
-                   /*SyslogEvent log1 = new SyslogEvent(user[r.nextInt(user.length)], msglogin[r.nextInt(msglogin.length)], 20190112, src[r.nextInt(src.length)], 4625);
+                   SyslogEvent log1 = new SyslogEvent(user[r.nextInt(user.length)], msglogin[r.nextInt(msglogin.length)], 20190112, src[r.nextInt(src.length)], 4625);
                    eventHandler.handle(log1);
 
 
@@ -73,7 +73,7 @@ public class RandomEventGenerator {
                     //SSH Logs
                    SyslogEvent log3 = new SyslogEvent(user[r.nextInt(user.length)], "Failed Password", 20190112, src[r.nextInt(src.length)],
                            dst[r.nextInt(dst.length)], 22);
-                   eventHandler.handle(log3);*/
+                   eventHandler.handle(log3);
 
 
                     port = r.nextInt(high-low) + low;

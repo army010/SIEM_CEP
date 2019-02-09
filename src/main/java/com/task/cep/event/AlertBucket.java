@@ -32,6 +32,7 @@ public class AlertBucket {
         eventID2 = _eventID2;
         src = _src;
         dst = _dst;
+        message = "Privileged Logon Detected After Multiple Login Failures";
     }
 
     public AlertBucket(String _user, String _message, long _date, int _eventID, String _src, String _dst)
@@ -110,7 +111,7 @@ public class AlertBucket {
 
     @Override
     public String toString() {
-        return "Alert Triggered: " + getSrc() + " " + getDst_port() + " " + getEventID() + " " + getMessage()  ;
+        return "Alert Triggered: " + getSrc() + " " +  getDst_port() + " " + getEventID() + " " + getMessage()  ;
     }
 
 
@@ -177,6 +178,8 @@ public class AlertBucket {
     public void setPackets(int packets) {
         this.packets = packets;
     }
+
+    public AlertBucket getData(){ return this;}
 
 
 
