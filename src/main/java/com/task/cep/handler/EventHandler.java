@@ -133,6 +133,14 @@ public class EventHandler implements InitializingBean {
     private BlackListQuery blackListQuery;
 
 
+    @Autowired
+    @Qualifier("symVirusSubscriber")
+    private SymVirusSubscriber symVirusSubscriber;
+
+    @Autowired
+    @Qualifier("webVirusSubscriber")
+    private WebVirusSubscriber webVirusSubscriber;
+
     /**
      * Configure Esper Statement(s).
      */
@@ -151,16 +159,18 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(SyslogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(AlertBucket.class);
         epService.getEPAdministrator().getConfiguration().addEventType(ServerLogEvent.class);
-       // simpleSelect();
+        epService.getEPAdministrator().getConfiguration().addEventType(SymlogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(WeblogEvent.class);
+
+        // simpleSelect();
         DDoS();
         portScan();
 
         bruteForce();
         //privilegeEsc();
         sshBruteforce();
-
-
-
+        symVirus();
+        webVirus();
 
     }
 
@@ -173,6 +183,20 @@ public class EventHandler implements InitializingBean {
         EPStatement statement = epService.getEPAdministrator().createEPL(simpleSelectSubscriber.getStatement());
         //simpleSelectSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(simpleSelectSubscriber);
+    }
+    public void symVirus() {
+        LOG.info("Detect Malware Virus from the log file .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(symVirusSubscriber.getStatement());
+        symVirusSubscriber.addListener(new EventListener(), statement);
+        statement.setSubscriber(symVirusSubscriber);
+
+    }
+
+    public void webVirus() {
+        LOG.info("Detect Malware Virus from the web .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(webVirusSubscriber.getStatement());
+        webVirusSubscriber.addListener(new EventListener(), statement);
+        statement.setSubscriber(webVirusSubscriber);
     }
 
     public void portScan(){
@@ -312,6 +336,12 @@ public class EventHandler implements InitializingBean {
      * Handle the incoming Event.
      */
 
+    public void handle(SymlogEvent event)
+    {
+        //  LOG.debug(log.toString());
+        epService.getEPRuntime().sendEvent(event);
+    }
+
     public void handle(SyslogEvent log)
     {
         //LOG.debug(log.toString());
@@ -352,6 +382,11 @@ public class EventHandler implements InitializingBean {
 
         LOG.debug("Configuring..");
         initService();
+    }
+
+    public void handle(WeblogEvent event) {
+        //  LOG.debug(log.toString());
+        epService.getEPRuntime().sendEvent(event);
     }
 
     public void addListener(UpdateListener listener, EPStatement statement) {

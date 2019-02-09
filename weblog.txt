@@ -1,0 +1,134 @@
+[
+ {
+   "time": "24.01.2019 10:57:50",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/eicar.com",
+   "threat": "Eicar test file",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "CF8BD9DFDDFF007F75ADF4C2BE48005CEA317C62"
+ },
+ {
+   "time": "24.01.2019 11:01:38",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/eicar.com",
+   "threat": "Eicar test file",
+   "action": "connection not terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "CF8BD9DFDDFF007F75ADF4C2BE48005CEA317C62"
+ },
+ {
+   "time": "24.01.2019 11:01:41",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/ms14_064_ole_xp.html",
+   "threat": "Win32/Exploit.CVE-2014-6332.A trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "3D4C6F8B0EFA8686F30AB9B96251BDF732532183"
+ },
+ {
+   "time": "24.01.2019 11:01:46",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/ms14_064_ole_not_xp.html",
+   "threat": "Win32/Exploit.CVE-2014-6332.A trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "21374AD64D32D5B6FAAF99A95A35C594EBD9544D"
+ },
+ {
+   "time": "24.01.2019 11:01:52",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/java_jre17_exec.html",
+   "threat": "HTML/Agent.V trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "A3CD09CB3EE3540DD7541A664EFD8B2A2C53310E"
+ },
+ {
+   "time": "24.01.2019 11:02:00",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/ms05_054_onload.html",
+   "threat": "JS/Exploit.CVE-2005-1790.C trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "D70E2BCCF2303A30C6ADB604454B6FFE4D7A0B91"
+ },
+ {
+   "time": "24.01.2019 11:02:05",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/ms09_002_memory_corruption.html",
+   "threat": "JS/Kryptik.AFR trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "4859B1AC452337CEA2869293CC0E1F480272CBA5"
+ },
+ {
+   "time": "24.01.2019 11:06:15",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/ms09_072_style_object.html",
+   "threat": "JS/Exploit.CVE-2009-3672.A trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "788B3E037831A9D1C5CDC36A9A643C65CB9E3EDD"
+ },
+ {
+   "time": "24.01.2019 11:06:19",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/ms10_090_ie_css_clip_ie6.html",
+   "threat": "JS/Exploit.CVE-2010-3962.A trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "F3ABEC26E1EF6C0AF75A831964EA13DDA29678B7"
+ },
+ {
+   "time": "24.01.2019 11:06:22",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/firefox_proto_crmfrequest.html",
+   "threat": "JS/Exploit.CVE-2012-3993.A trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "0364B4CD35AA99460C90948CEBA64E34CAE8851C"
+ },
+ {
+   "time": "24.01.2019 11:06:26",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/vlc_amv.html",
+   "threat": "JS/Exploit.Agent.NHI trojan",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "A6CC08309C31C985E23311BE4A4E048719B8C4BE"
+ },
+ {
+   "time": "24.01.2019 11:06:42",
+   "scanner": "HTTP filter",
+   "type": "file",
+   "object": "http://malware.wicar.org/data/js_crypto_miner.html",
+   "threat": "JS/CoinMiner.AH potentially unwanted application",
+   "action": "connection terminated",
+   "user": "DESKTOP-7VMU8I8\\Pooja Patel",
+   "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
+   "hash": "07AFA1AE025E9F8E0F082B1C09C7988369CC939C"
+ }
+]

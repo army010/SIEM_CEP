@@ -1,6 +1,8 @@
 package com.task.cep.util;
 
 import static java.lang.System.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.util.Date;
@@ -12,6 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.task.cep.event.SymlogEvent;
+import com.task.cep.event.WeblogEvent;
+import com.task.cep.handler.EventHandler;
+import com.task.cep.handler.JsonFileParser;
+import java.io.IOException;
+import java.util.List;
+
 
 import com.task.cep.event.*;
 
@@ -34,6 +43,40 @@ public class RandomEventGenerator {
     /**
      * Creates simple random events and lets the implementation class handle them.
      */
+    public void startSendingEventReadingsVirus()  {
+        ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
+        xrayExecutor.submit(new Runnable() {
+            public void run() {
+                LOG.debug(getStartingMessage());
+                JsonFileParser parser = new JsonFileParser();
+                List<WeblogEvent> weblogEventList;
+                List<SymlogEvent> symlogEventList;
+
+                try {
+                    weblogEventList = parser.getWebEvents();
+                    symlogEventList = parser.getSymEvents();
+                    for (WeblogEvent event : weblogEventList) {
+                        Thread.sleep(200);
+                        eventHandler.handle(event);
+                    }
+
+                    for (SymlogEvent event : symlogEventList) {
+                        Thread.sleep(2000);
+                        eventHandler.handle(event);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    LOG.error("Jsonparser got an error", e);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    LOG.error("Thread Interrupted", e);
+                }
+
+            }
+        });
+    }
+
     public void startSendingEventReadings(final long noOfEvents) {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
