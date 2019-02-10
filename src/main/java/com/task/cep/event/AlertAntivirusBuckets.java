@@ -1,9 +1,6 @@
 package com.task.cep.event;
 
-import java.util.Objects;
-
-public class BaseLogEvent {
-
+public class AlertAntivirusBuckets {
     protected String time;
     protected String scanner;
     protected String type;
@@ -15,11 +12,25 @@ public class BaseLogEvent {
     protected String hash;
     protected String ipaddress;
 
-
-    public BaseLogEvent() {
+    @Override
+    public String toString() {
+        return "AlertAntivirusBuckets :" +
+                "time='" + time + '\'' +
+                ", scanner='" + scanner + '\'' +
+                ", type='" + type + '\'' +
+                ", object='" + object + '\'' +
+                ", threat='" + threat + '\'' +
+                ", action='" + action + '\'' +
+                ", user='" + user + '\'' +
+                ", information='" + information + '\'' +
+                ", hash='" + hash + '\'' +
+                ", ipaddress='" + ipaddress + '\'' ;
     }
 
-    public BaseLogEvent(String time, String scanner, String type, String object, String threat, String action, String user, String information, String hash, String ipaddress) {
+    public AlertAntivirusBuckets() {
+    }
+
+    public AlertAntivirusBuckets(String time, String scanner, String type, String object, String threat, String action, String user, String information, String hash, String ipaddress) {
         this.time = time;
         this.scanner = scanner;
         this.type = type;
@@ -30,51 +41,6 @@ public class BaseLogEvent {
         this.information = information;
         this.hash = hash;
         this.ipaddress = ipaddress;
-    }
-
-    @Override
-    public String toString() {
-        return "Antivirus  Alert Triggered ::" +
-                "time='" + time + '\'' +
-                ", scanner='" + scanner + '\'' +
-                ", type='" + type + '\'' +
-                ", object='" + object + '\'' +
-                ", threat='" + threat + '\'' +
-                ", action='" + action + '\'' +
-                ", user='" + user + '\'' +
-                ", information='" + information + '\'' +
-                ", hash='" + hash + '\'' +
-                ", ipaddress='" + ipaddress + '\'';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BaseLogEvent)) return false;
-        BaseLogEvent that = (BaseLogEvent) o;
-        return Objects.equals(getTime(), that.getTime()) &&
-                Objects.equals(getScanner(), that.getScanner()) &&
-                Objects.equals(getType(), that.getType()) &&
-                Objects.equals(getObject(), that.getObject()) &&
-                Objects.equals(getThreat(), that.getThreat()) &&
-                Objects.equals(getAction(), that.getAction()) &&
-                Objects.equals(getUser(), that.getUser()) &&
-                Objects.equals(getInformation(), that.getInformation()) &&
-                Objects.equals(getHash(), that.getHash())&&
-                Objects.equals(getIpaddress(), that.getIpaddress());
-    }
-
-    public String getIpaddress() {
-        return ipaddress;
-    }
-
-    public void setIpaddress(String ipaddress) {
-        this.ipaddress = ipaddress;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTime(), getScanner(), getType(), getObject(), getThreat(), getAction(), getUser(), getInformation(), getHash(),getIpaddress());
     }
 
     public String getTime() {
@@ -147,5 +113,13 @@ public class BaseLogEvent {
 
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    public String getIpaddress() {
+        return ipaddress;
+    }
+
+    public void setIpaddress(String ipaddress) {
+        this.ipaddress = ipaddress;
     }
 }

@@ -135,11 +135,18 @@ public class EventHandler implements InitializingBean {
 
     @Autowired
     @Qualifier("symVirusSubscriber")
-    private SymVirusSubscriber symVirusSubscriber;
+    private StatementSubscriber symVirusSubscriber;
+
+    @Autowired
+    @Qualifier("multipleAntivirusSubscriber")
+    private StatementSubscriber multipleAntivirusSubscriber;
+
 
     @Autowired
     @Qualifier("webVirusSubscriber")
-    private WebVirusSubscriber webVirusSubscriber;
+    private StatementSubscriber webVirusSubscriber;
+
+
 
     /**
      * Configure Esper Statement(s).
@@ -161,6 +168,9 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(ServerLogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(SymlogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(WeblogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(BaseLogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(AlertAntivirusBuckets.class);
+
 
         // simpleSelect();
         DDoS();
@@ -171,6 +181,7 @@ public class EventHandler implements InitializingBean {
         sshBruteforce();
         symVirus();
         webVirus();
+        multipleAntivirus();
 
     }
 
@@ -187,7 +198,7 @@ public class EventHandler implements InitializingBean {
     public void symVirus() {
         LOG.info("Detect Malware Virus from the log file .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(symVirusSubscriber.getStatement());
-        symVirusSubscriber.addListener(new EventListener(), statement);
+        //symVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(symVirusSubscriber);
 
     }
@@ -195,8 +206,14 @@ public class EventHandler implements InitializingBean {
     public void webVirus() {
         LOG.info("Detect Malware Virus from the web .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(webVirusSubscriber.getStatement());
-        webVirusSubscriber.addListener(new EventListener(), statement);
+        //webVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(webVirusSubscriber);
+    }
+    public void multipleAntivirus() {
+        LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
+        //multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
+        statement.setSubscriber(multipleAntivirusSubscriber);
     }
 
     public void portScan(){

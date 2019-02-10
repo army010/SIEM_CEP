@@ -125,7 +125,7 @@
    "type": "file",
    "object": "http://malware.wicar.org/data/vlc_amv.html",
    "threat": "JS/Exploit.Agent.NHI trojan",
-   "action": "connection terminated",
+   "action": "connection not terminated",
    "user": "DESKTOP-7VMU8I8\\Pooja Patel",
    "information": "threat was detected upon access to web by the application: C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
    "hash": "A6CC08309C31C985E23311BE4A4E048719B8C4BE",

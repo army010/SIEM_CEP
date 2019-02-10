@@ -1,7 +1,8 @@
 package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPStatement;
-import com.task.cep.event.SymlogEvent;
+import com.task.cep.event.*;
+import com.task.cep.handler.AntiVirusListener;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
 import org.slf4j.Logger;
@@ -16,16 +17,16 @@ public class SymVirusSubscriber implements StatementSubscriber {
 
 
     public String getStatement() {
-     String logComplexQuery = "select * from SymlogEvent((type = 'file' AND (action = 'connection not terminated' OR action = 'not deleted') AND information LIKE 'threat was detected %')) having count(*) > 0";
-       // String logComplexQuery = "select * from ViruslogEvent((type = 'file' AND action = 'not deleted' AND information LIKE 'threat was detected %')) having count(*) > 0";
 
-  //  String logComplexQuery = "select * from ViruslogEvent.win:expr_batch(current_count >= 1)";
+        String logComplexQuery = "insert into AlertAntivirusBuckets(type,time,user,scanner,object,threat,action,information,hash,ipaddress) "+
+                                 "select type,time,user,scanner,object,threat,action,information,hash,ipaddress "+
+                                 "from SymlogEvent((action = 'not deleted')) having count(*) > 0";
+
         return logComplexQuery;
     }
-
     @Override
     public void addListener(EventListener eventListener, EPStatement statement) {
-        statement.addListener(eventListener);
+        // statement.addListener(eventListener);
     }
 
     @Override
@@ -33,7 +34,17 @@ public class SymVirusSubscriber implements StatementSubscriber {
 
     }
 
+    public void addListener(AntiVirusListener antiVirusListener, EPStatement statement) {
+        statement.addListener(antiVirusListener);
+
+    }
+
     public void update(Map<String, SymlogEvent> eventMap) {
         // required by springframe work
+        String sb = "***************************************\n" +
+                "* Match Found  for SymVirus \n" +
+                "**************************************";
+        LOG.info(sb);
     }
+
 }

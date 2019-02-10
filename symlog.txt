@@ -65,7 +65,7 @@
    "type": "file",
    "object": "C://users/Pooja Patel/Downloads/3ca4bd83-e3fe-4861-9834-05fb0a454ad5.tmp",
    "threat": "Eicar test file",
-   "action": "deleted",
+   "action": "not deleted",
    "user": "DESKTOP-7VMU8I8\\Pooja Patel",
    "information": "Event occurred on a file modified by the application:C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe (CBC93977B036EF2C6F9569F797BCBA03B8CD31A3).",
    "hash": "D27265074C9EAC2E2122ED69294DBC4D7CCE9141",
