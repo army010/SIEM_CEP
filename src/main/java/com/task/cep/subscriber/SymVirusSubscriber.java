@@ -1,7 +1,7 @@
 package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPStatement;
-import com.task.cep.event.SymlogEvent;
+import com.task.cep.event.*;
 import com.task.cep.handler.AntiVirusListener;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
@@ -17,13 +17,11 @@ public class SymVirusSubscriber implements StatementSubscriber {
 
 
     public String getStatement() {
-  //   String logComplexQuery = "select * from SymlogEvent((type = 'file' AND (action = 'connection not terminated' OR action = 'not deleted') AND information LIKE 'threat was detected %')) having count(*) > 0";
-        String logComplexQuery = "insert into BaseLogEvent(type,time,user,scanner,object,threat,action,information,hash,ipaddress) "+
+
+        String logComplexQuery = "insert into AlertAntivirusBuckets(type,time,user,scanner,object,threat,action,information,hash,ipaddress) "+
                                  "select type,time,user,scanner,object,threat,action,information,hash,ipaddress "+
                                  "from SymlogEvent((type = 'file' AND action = 'not deleted' AND information LIKE 'threat was detected %')) having count(*) > 0";
 
-
-        //  String logComplexQuery = "select * from ViruslogEvent.win:expr_batch(current_count >= 1)";
         return logComplexQuery;
     }
     @Override

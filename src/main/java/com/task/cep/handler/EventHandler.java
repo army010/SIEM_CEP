@@ -138,12 +138,13 @@ public class EventHandler implements InitializingBean {
     private SymVirusSubscriber symVirusSubscriber;
 
     @Autowired
+    @Qualifier("multipleAntivirusSubscriber")
+    private MultipleAntivirusSubscriber multipleAntivirusSubscriber;
+
+
+    @Autowired
     @Qualifier("webVirusSubscriber")
     private WebVirusSubscriber webVirusSubscriber;
-
-//    @Autowired
-//    @Qualifier("multipleAntivirusSubscriber")
-//    private MultipleAntivirusSubscriber multipleAntivirusSubscriber;
 
 
 
@@ -168,6 +169,8 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(SymlogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(WeblogEvent.class);
         epService.getEPAdministrator().getConfiguration().addEventType(BaseLogEvent.class);
+        epService.getEPAdministrator().getConfiguration().addEventType(AlertAntivirusBuckets.class);
+
 
         // simpleSelect();
         DDoS();
@@ -206,12 +209,12 @@ public class EventHandler implements InitializingBean {
         webVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(webVirusSubscriber);
     }
-//    public void multipleAntivirus() {
-//        LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
-//        EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
-//        multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
-//        statement.setSubscriber(multipleAntivirusSubscriber);
-//    }
+    public void multipleAntivirus() {
+        LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
+        EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
+        multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
+        statement.setSubscriber(multipleAntivirusSubscriber);
+    }
 
     public void portScan(){
         LOG.debug("PortScan.................");

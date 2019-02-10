@@ -16,7 +16,7 @@ public class AntiVirusListener implements UpdateListener {
 
         EventBean theEvent = newEvents[0];
 
-        LOG.info(theEvent.getUnderlying().toString());
+        LOG.info("Getting Event: " + theEvent.getUnderlying().toString());
 
         //log.debug(theEvent.toString());
         LOG.info("Malware or Malicious website Detected!");

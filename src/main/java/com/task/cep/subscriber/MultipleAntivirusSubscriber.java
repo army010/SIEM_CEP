@@ -3,8 +3,7 @@ package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
-import com.task.cep.event.SymlogEvent;
-import com.task.cep.event.SyslogEvent;
+import com.task.cep.event.*;
 import com.task.cep.handler.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,23 +21,19 @@ public class MultipleAntivirusSubscriber implements StatementSubscriber {
 
 
     public String getStatement() {
-        String select = "insert into SymlogEvent(scanner,threat, action,information,ipaddress) select b_scanner,b_threat, b_action,b_information,b_ipaddress from SymlogEvent"+
-                "select a_scanner,a_threat, a_action,a_information,a_ipaddress from WeblogEvent"
-                // String select = "select * from SyslogEvent.win:time(5 sec) "
-                + "match_recognize ( "
-                + "       measures A.ipaddress as a_IPaddress, B.ipaddress as b_IPaddress, A.action as a_action, B.action as b_action"
-                + "       pattern (A B) "
-                + "       define "
-                + "       A as A.action = 'connection not terminated' and "
-                + "       B as B.action = 'not deleted' )";
 
+//                String select = "select * from WeblogEvent.std:unique(ipaddress) as wb"
+//                + ",SymlogEvent.std:unique(ipaddress) as sym ";
+
+        String select = " insert into BaseLogEvent(type,scanner,object,action,information,ipaddress) select type,scanner,object,action,information,ipaddress" +
+                " from WeblogEvent.std:unique(ipaddress) as web, SymlogEvent.std:unique(ipaddress)";
         return select;
 
     }
 
 
 
-    public void update(Map<String, SymlogEvent> eventMap) {
+    public void update(Map<String, WeblogEvent> eventMap) {
 
     }
 
