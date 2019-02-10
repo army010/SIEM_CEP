@@ -37,6 +37,11 @@ public class WebVirusSubscriber implements StatementSubscriber {
 
     public void update(Map<String, WeblogEvent> eventMap) {
     // required by springframe work
+        String sb = "***************************************" +
+                "\n* Match Found  for WebVirus \n" +
+                "\n**************************************";
+        LOG.info(sb);
+
     }
 
     public void addListener(AntiVirusListener antiVirusListener, EPStatement statement) {

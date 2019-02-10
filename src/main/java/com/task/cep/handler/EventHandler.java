@@ -147,7 +147,7 @@ public class EventHandler implements InitializingBean {
     private WebVirusSubscriber webVirusSubscriber;
 
 
-
+    
     /**
      * Configure Esper Statement(s).
      */
@@ -181,7 +181,7 @@ public class EventHandler implements InitializingBean {
         sshBruteforce();
         symVirus();
         webVirus();
-       // multipleAntivirus();
+        multipleAntivirus();
 
     }
 

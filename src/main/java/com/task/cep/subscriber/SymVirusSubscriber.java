@@ -41,6 +41,10 @@ public class SymVirusSubscriber implements StatementSubscriber {
 
     public void update(Map<String, SymlogEvent> eventMap) {
         // required by springframe work
+        String sb = "***************************************\n" +
+                "* Match Found  for SymVirus \n" +
+                "**************************************";
+        LOG.info(sb);
     }
 
 }

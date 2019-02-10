@@ -19,22 +19,25 @@ import java.util.Map;
 public class MultipleAntivirusSubscriber implements StatementSubscriber {
     private static final Logger LOG = LoggerFactory.getLogger(MultipleAntivirusSubscriber.class);
 
-
     public String getStatement() {
 
-//                String select = "select * from WeblogEvent.std:unique(ipaddress) as wb"
-//                + ",SymlogEvent.std:unique(ipaddress) as sym ";
+        String checkAB = "Insert into AlertAntivirusBuckets (user,ipaddress) "+
+                " Select web.getUser(), web.getIpaddress() from " +
+                " WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web,"+
+                " SymlogEvent(action = 'not deleted').win:time(3 sec) as sym "+
+                " where web.getIpaddress() = sym.getIpaddress()";
 
-        String select = " insert into BaseLogEvent(type,scanner,object,action,information,ipaddress) select type,scanner,object,action,information,ipaddress" +
-                " from WeblogEvent.std:unique(ipaddress) as web, SymlogEvent.std:unique(ipaddress)";
-        return select;
+        return checkAB;
 
     }
 
 
 
-    public void update(Map<String, WeblogEvent> eventMap) {
-
+    public void update(Map<String, AlertAntivirusBuckets> eventMap) {
+        String sb = "***************************************" +
+                "\n* Match  virus Found  for Web and Sym within 3 second \n" +
+                "\n**************************************";
+        LOG.info(sb);
     }
 
     @Override
