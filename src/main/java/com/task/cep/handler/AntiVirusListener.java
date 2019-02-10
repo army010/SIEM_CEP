@@ -18,8 +18,7 @@ public class AntiVirusListener implements UpdateListener {
 
         LOG.info("Getting Event: " + theEvent.getUnderlying().toString());
 
-        //log.debug(theEvent.toString());
-        LOG.info("Malware or Malicious website Detected!");
+        //LOG.info("Malware or Malicious website Detected!");
     }
 
 }

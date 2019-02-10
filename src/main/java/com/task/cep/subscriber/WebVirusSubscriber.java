@@ -20,7 +20,7 @@ public class WebVirusSubscriber implements StatementSubscriber {
     public String getStatement() {
         String logComplexQuery = "insert into AlertAntivirusBuckets(type,time,user,scanner,object,threat,action,information,hash,ipaddress) "+
                                  "select type,time,user,scanner,object,threat,action,information,hash,ipaddress "+
-                                 "from WeblogEvent((type = 'file' AND action = 'connection not terminated'  AND information LIKE 'threat was detected %')) having count(*) > 0";
+                                 "from WeblogEvent((action = 'connection not terminated')) having count(*) > 0";
 
            return logComplexQuery;
     }
