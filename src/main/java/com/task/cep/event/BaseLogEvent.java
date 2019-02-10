@@ -16,21 +16,6 @@ public class BaseLogEvent {
     protected String ipaddress;
 
 
-    public BaseLogEvent() {
-    }
-
-    public BaseLogEvent(String time, String scanner, String type, String object, String threat, String action, String user, String information, String hash, String ipaddress) {
-        this.time = time;
-        this.scanner = scanner;
-        this.type = type;
-        this.object = object;
-        this.threat = threat;
-        this.action = action;
-        this.user = user;
-        this.information = information;
-        this.hash = hash;
-        this.ipaddress = ipaddress;
-    }
 
     @Override
     public String toString() {
