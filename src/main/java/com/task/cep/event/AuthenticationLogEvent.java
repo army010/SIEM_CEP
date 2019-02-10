@@ -1,22 +1,21 @@
 package com.task.cep.event;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Arrays;
 
 public class AuthenticationLogEvent {
     String message;
-    @JsonAlias({"version","@version"})
+    @JsonAlias({"version", "@version"})
     String version;
     String host;
     String tags[];
     String path;
+    @JsonAlias({"timestamp", "@timestamp"})
+    String timestamp;
 
     public AuthenticationLogEvent() {
     }
-    @JsonAlias({"timestamp","@timestamp"})
-    String timestamp;
 
     public AuthenticationLogEvent(String message, String version, String host, String[] tags, String path, String timestamp) {
         this.message = message;

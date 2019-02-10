@@ -1,12 +1,12 @@
 package com.task.cep;
 
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
+import com.task.cep.util.RandomEventGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.sun.jersey.api.container.httpserver.HttpServerFactory;
-import com.task.cep.util.RandomEventGenerator;
 
 import java.io.IOException;
 
@@ -16,7 +16,9 @@ import java.io.IOException;
  */
 class StartDemo {
 
-    /** Logger */
+    /**
+     * Logger
+     */
     private static final Logger LOG = LoggerFactory.getLogger(StartDemo.class);
 
 

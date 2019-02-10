@@ -17,6 +17,7 @@ public class WeigthedMeanQuery implements StatementSubscriber {
                 "+ 0.9*mean.value) AS value FROM SummedConnectionCount\n" +
                 "AS x unidirectional, weigthedMean.std:lastevent() AS mean";
     }
+
     public void update(Map<String, SyslogEvent> eventMap) {
 
     }

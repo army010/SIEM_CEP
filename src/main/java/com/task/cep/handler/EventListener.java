@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class EventListener implements UpdateListener {
     private static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
+
     public void update(EventBean[] newEvents, EventBean[] oldEvents) {
         if (newEvents == null) {
             // we don't care about events leaving the window (old events)
@@ -18,10 +19,8 @@ public class EventListener implements UpdateListener {
         LOG.debug(theEvent.getUnderlying().toString());
 
         //log.debug(theEvent.toString());
-        LOG.debug("Port Scan Working! / Brute Force Detected!");
+        LOG.debug("Port Scan Working! / Multiple Login Failed Detected!");
     }
-
-    private static final Logger log = LoggerFactory.getLogger(EventListener.class);
 }
 
 

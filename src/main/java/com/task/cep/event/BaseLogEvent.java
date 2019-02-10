@@ -16,7 +16,6 @@ public class BaseLogEvent {
     protected String ipaddress;
 
 
-
     @Override
     public String toString() {
         return "Antivirus  Alert Triggered ::" +
@@ -45,7 +44,7 @@ public class BaseLogEvent {
                 Objects.equals(getAction(), that.getAction()) &&
                 Objects.equals(getUser(), that.getUser()) &&
                 Objects.equals(getInformation(), that.getInformation()) &&
-                Objects.equals(getHash(), that.getHash())&&
+                Objects.equals(getHash(), that.getHash()) &&
                 Objects.equals(getIpaddress(), that.getIpaddress());
     }
 
@@ -59,7 +58,7 @@ public class BaseLogEvent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTime(), getScanner(), getType(), getObject(), getThreat(), getAction(), getUser(), getInformation(), getHash(),getIpaddress());
+        return Objects.hash(getTime(), getScanner(), getType(), getObject(), getThreat(), getAction(), getUser(), getInformation(), getHash(), getIpaddress());
     }
 
     public String getTime() {

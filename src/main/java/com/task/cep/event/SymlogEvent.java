@@ -1,6 +1,4 @@
 package com.task.cep.event;
-import com.task.cep.event.BaseLogEvent;
-import java.util.Objects;
 
 public class SymlogEvent extends BaseLogEvent {
 

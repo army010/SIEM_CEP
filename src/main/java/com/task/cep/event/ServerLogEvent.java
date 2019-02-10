@@ -3,8 +3,8 @@ package com.task.cep.event;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-public class ServerLogEvent{
-    @JsonAlias({"version","@version"})
+public class ServerLogEvent {
+    @JsonAlias({"version", "@version"})
     String version;
     String client_ip;
     String http_version;
@@ -16,7 +16,7 @@ public class ServerLogEvent{
     String request_page;
     String message;
     String path;
-    @JsonAlias({"timestamp","@timestamp"})
+    @JsonAlias({"timestamp", "@timestamp"})
     String timestamp;
     String apache_timestamp;
     String server_response;

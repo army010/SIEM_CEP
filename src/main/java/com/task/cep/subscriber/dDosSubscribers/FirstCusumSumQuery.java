@@ -14,7 +14,7 @@ public class FirstCusumSumQuery implements StatementSubscriber {
     @Override
     public String getStatement() {
         return "INSERT INTO cusumSum SELECT Math.max((a.value*4 - b.value),0)\n" +
-                "AS value FROM PATTERN [b=upperTreshold -> a=SummedConnectionCount]\n" ;
+                "AS value FROM PATTERN [b=upperTreshold -> a=SummedConnectionCount]\n";
     }
 
     public void update(Map<String, SyslogEvent> eventMap) {

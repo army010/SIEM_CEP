@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class FirstWeigthedMeanQuery  implements StatementSubscriber {
+public class FirstWeigthedMeanQuery implements StatementSubscriber {
     @Override
     public String getStatement() {
         return "INSERT INTO weigthedMean SELECT a.value AS value\n" +
                 "FROM PATTERN [a=SummedConnectionCount]";
     }
+
     public void update(Map<String, SyslogEvent> eventMap) {
 
     }

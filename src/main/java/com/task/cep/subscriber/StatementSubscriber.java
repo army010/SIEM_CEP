@@ -1,8 +1,8 @@
 package com.task.cep.subscriber;
 
-import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
-import com.task.cep.handler.*;
+import com.task.cep.handler.EventListener;
+import com.task.cep.handler.EventListener2;
 
 /**
  * Just a convenience interface to let us easily contain the Esper statements with the Subscribers -
@@ -12,6 +12,7 @@ public interface StatementSubscriber {
 
     /**
      * Get the EPL Statement the Subscriber will listen to.
+     *
      * @return EPL Statement
      */
     String getStatement();

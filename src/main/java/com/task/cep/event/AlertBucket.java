@@ -11,32 +11,21 @@ public class AlertBucket {
     private int bytes;
     private int packets;
     private long date;
-    private  int eventID;
-    private  int eventID2;
+    private int eventID;
+    private int eventID2;
     private int priority;
     private String origin;
     private String marker;
     private String user;
 
-    public String getMarker() {
-        return marker;
-    }
-
-    public void setMarker(String marker) {
-        this.marker = marker;
-    }
-
-    public AlertBucket(int _eventID, int _eventID2, String _src, String _dst)
-    {
+    public AlertBucket(int _eventID, int _eventID2, String _src, String _dst) {
         eventID = _eventID;
         eventID2 = _eventID2;
         src = _src;
         dst = _dst;
-        message = "Privileged Logon Detected After Multiple Login Failures";
     }
 
-    public AlertBucket(String _user, String _message, long _date, int _eventID, String _src, String _dst)
-    {
+    public AlertBucket(String _user, String _message, long _date, int _eventID, String _src, String _dst) {
         eventID = _eventID;
         date = _date;
         src = _src;
@@ -45,6 +34,14 @@ public class AlertBucket {
         user = _user;
     }
 
+    public AlertBucket(String _user, String _message, long _date, String _src, String _dst, int _dst_port) {
+        dst_port = _dst_port;
+        date = _date;
+        src = _src;
+        dst = _dst;
+        message = _message;
+        user = _user;
+    }
 
     public AlertBucket() {
 
@@ -57,6 +54,13 @@ public class AlertBucket {
         message = _message;
     }
 
+    public String getMarker() {
+        return marker;
+    }
+
+    public void setMarker(String marker) {
+        this.marker = marker;
+    }
 
     public int getEventID() {
         return eventID;
@@ -74,14 +78,6 @@ public class AlertBucket {
         this.eventID2 = eventID2;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
     public String getUser() {
         return user;
     }
@@ -90,28 +86,42 @@ public class AlertBucket {
         this.user = user;
     }
 
+    public long getDate() {
+        return date;
+    }
+
     public void setDate(long _date) {
         date = _date;
     }
-    public void setMessage(String _message) {
-        message = _message;
-    }
-    public long getDate(){
-        return date;
-    }
+
     public String getMessage() {
         return message;
     }
+
+    public void setMessage(String _message) {
+        message = _message;
+    }
+
     public int getPriority() {
         return priority;
     }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     public String getOrigin() {
         return origin;
     }
 
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
     @Override
     public String toString() {
-        return "Alert Triggered: " + getSrc() + " " +  getDst_port() + " " + getEventID() + " " + getMessage()  ;
+        return "Alert Triggered: " + getSrc() + " " + getDst() + " " +
+                getDst_port() + " " + getEventID() + " " + getEventID2()+ " " + getMessage() + " " + getUser();
     }
 
 
@@ -179,9 +189,9 @@ public class AlertBucket {
         this.packets = packets;
     }
 
-    public AlertBucket getData(){ return this;}
-
-
+    public AlertBucket getData() {
+        return this;
+    }
 
 
 }

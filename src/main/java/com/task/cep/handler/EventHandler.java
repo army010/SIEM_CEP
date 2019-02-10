@@ -1,21 +1,17 @@
 package com.task.cep.handler;
 
 import com.espertech.esper.client.*;
-
 import com.task.cep.event.*;
 import com.task.cep.subscriber.*;
 import com.task.cep.subscriber.dDosSubscribers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.espertech.esper.client.EPStatement;
-import com.espertech.esper.client.UpdateListener;
 import java.util.List;
 
 @Component
@@ -23,13 +19,19 @@ import java.util.List;
 public class EventHandler implements InitializingBean {
 
 
-    /** Logger */
+    /**
+     * Logger
+     */
     private static final Logger LOG = LoggerFactory.getLogger(EventHandler.class);
 
-    /** Esper service */
+    /**
+     * Esper service
+     */
     private EPServiceProvider epService;
 
-    /** make your subscriber class as below */
+    /**
+     * make your subscriber class as below
+     */
 
     @Autowired
     @Qualifier("simpleSelectSubscriber")
@@ -147,7 +149,6 @@ public class EventHandler implements InitializingBean {
     private StatementSubscriber webVirusSubscriber;
 
 
-
     /**
      * Configure Esper Statement(s).
      */
@@ -173,30 +174,31 @@ public class EventHandler implements InitializingBean {
 
 
         // simpleSelect();
-        DDoS();
-        portScan();
-
         bruteForce();
         privilegeEsc();
         sshBruteforce();
         symVirus();
         webVirus();
         multipleAntivirus();
+        portScan();
+        DDoS();
 
     }
 
     /**
-     * EPL to check for a critical condition across events,*/
+     * EPL to check for a critical condition across events,
+     */
 
 
-    public void simpleSelect(){
-        LOG.debug("Login Failed .....");
+    public void simpleSelect() {
+        //LOG.debug("Login Failed .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(simpleSelectSubscriber.getStatement());
         //simpleSelectSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(simpleSelectSubscriber);
     }
+
     public void symVirus() {
-        LOG.info("Detect Malware Virus from the log file .....");
+        LOG.info("Detect Malware Virus from the syslog file .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(symVirusSubscriber.getStatement());
         //symVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(symVirusSubscriber);
@@ -204,11 +206,12 @@ public class EventHandler implements InitializingBean {
     }
 
     public void webVirus() {
-        LOG.info("Detect Malware Virus from the web .....");
+        LOG.info("Detect Malware Virus from the weblog .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(webVirusSubscriber.getStatement());
         //webVirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(webVirusSubscriber);
     }
+
     public void multipleAntivirus() {
         LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
@@ -216,8 +219,8 @@ public class EventHandler implements InitializingBean {
         statement.setSubscriber(multipleAntivirusSubscriber);
     }
 
-    public void portScan(){
-        LOG.debug("PortScan.................");
+    public void portScan() {
+        LOG.debug("Detecting PortScan Attempt");
         //epService.getEPAdministrator().createEPL("create schema PortScanEvent(src string, dst string, port int, marker string)");
         epService.getEPAdministrator().createEPL("create table ScanCountTable(src string primary key, dst string primary key, cnt count(*), win window(*) @type(IPlogEvent))");
         epService.getEPAdministrator().createEPL("create window SituationsWindow#keepall() (src string, dst string, detectionTime long)");
@@ -249,27 +252,28 @@ public class EventHandler implements InitializingBean {
     }
 
 
-    public void bruteForce(){
-        //LOG.debug("Simple Select to match 10 Login Failed .....");
+    public void bruteForce() {
+        LOG.debug("Detecting Multiple Login Failed....");
         EPStatement statement = epService.getEPAdministrator().createEPL(bruteForceSubscriber.getStatement());
         bruteForceSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(bruteForceSubscriber);
     }
 
-    public void privilegeEsc(){
-        //LOG.debug("Simple Select to match Privilege escalation .....");
+    public void privilegeEsc() {
+        LOG.debug("Detecting Privileged Logon....");
         EPStatement statement = epService.getEPAdministrator().createEPL(privilegeEscSubscriber.getStatement());
         privilegeEscSubscriber.addListener(new EventListener2(), statement);
         statement.setSubscriber(privilegeEscSubscriber);
     }
 
-    public void sshBruteforce(){
+    public void sshBruteforce() {
+        LOG.debug("Detecting SSH Brute Force Attacks....");
         EPStatement statement = epService.getEPAdministrator().createEPL(sshBruteForceSubscriber.getStatement());
         sshBruteForceSubscriber.addListener(new EventListener(), statement);
         statement.setSubscriber(sshBruteForceSubscriber);
     }
 
-    public void DDoS(){
+    public void DDoS() {
         LOG.debug("DDoS Attack .....");
         String EPLSChemaQueries = "create schema IncomingIPConnection(incomingip string); " +
                 "create schema ConnectionCount(value int);" +
@@ -338,7 +342,6 @@ public class EventHandler implements InitializingBean {
         statement.setSubscriber(blackListQuery);
 
 
-
         statement = epService.getEPAdministrator().createEPL(testSubscriber.getStatement());
         testSubscriber.addListener(new DDOSListener(), statement);
         statement.setSubscriber(testSubscriber);
@@ -346,49 +349,40 @@ public class EventHandler implements InitializingBean {
     }
 
 
-
-
-
     /**
      * Handle the incoming Event.
      */
 
-    public void handle(SymlogEvent event)
-    {
+    public void handle(SymlogEvent event) {
         //  LOG.debug(log.toString());
         epService.getEPRuntime().sendEvent(event);
     }
 
-    public void handle(SyslogEvent log)
-    {
+    public void handle(SyslogEvent log) {
         //LOG.debug(log.toString());
 
         epService.getEPRuntime().sendEvent(log);
     }
 
-    public void handle(IPlogEvent log)
-    {
+    public void handle(IPlogEvent log) {
         //LOG.debug(log.toString());
 
         epService.getEPRuntime().sendEvent(log);
     }
 
-    public void handleAuthlog(List<AuthenticationLogEvent> log)
-    {
-       //LOG.debug(log.toString());
+    public void handleAuthlog(List<AuthenticationLogEvent> log) {
+        //LOG.debug(log.toString());
 
-       epService.getEPRuntime().sendEvent(log);
+        epService.getEPRuntime().sendEvent(log);
     }
 
-    public void handleServerlog(ServerLogEvent log)
-    {
+    public void handleServerlog(ServerLogEvent log) {
         // LOG.debug(log.toString());
 
-         epService.getEPRuntime().sendEvent(log);
+        epService.getEPRuntime().sendEvent(log);
     }
 
-    public void handleSyslog(List<SyslogEvent> log)
-    {
+    public void handleSyslog(List<SyslogEvent> log) {
         // LOG.debug(log.toString());
 
         // epService.getEPRuntime().sendEvent(log);

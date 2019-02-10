@@ -18,17 +18,17 @@ public class SshBruteForceSubscriber implements StatementSubscriber {
 
     public String getStatement() {
 
-        String select = " select user, message, date, src, dst, dst_port" +
+        String select = //" insert into AlertBucket(user, message, date, src, dst, dst_port) " +
+                "select user, message, date, src, dst, dst_port" +
                 " from SyslogEvent(dst_port = 22).std:groupwin(src).win:time_length_batch(30 sec, 60)";
-                //" from SyslogEvent(message = 'Login Failed').std:groupwin(user).win:expr(current_count = 1)";
 
         return select;
 
     }
 
 
-
     public void update(Map<String, SyslogEvent> eventMap) {
+        LOG.debug("SSH Brute Force Detected");
 
     }
 

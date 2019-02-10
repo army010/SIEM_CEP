@@ -1,10 +1,10 @@
 package com.task.cep.subscriber;
 
 
-import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
 import com.task.cep.event.SyslogEvent;
-import com.task.cep.handler.*;
+import com.task.cep.handler.EventListener;
+import com.task.cep.handler.EventListener2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,6 @@ public class PortScanOne implements StatementSubscriber {
         return statement;
 
     }
-
 
 
     public void update(Map<String, SyslogEvent> eventMap) {

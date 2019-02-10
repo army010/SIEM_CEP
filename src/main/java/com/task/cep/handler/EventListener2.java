@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EventListener2 implements UpdateListener {
+    private static final Logger log = LoggerFactory.getLogger(EventListener2.class);
+
     public void update(EventBean[] newEvents, EventBean[] oldEvents) {
         if (newEvents == null) {
             // we don't care about events leaving the window (old events)
@@ -18,8 +20,6 @@ public class EventListener2 implements UpdateListener {
 
         log.debug("Privileged Logon detected");
     }
-
-    private static final Logger log = LoggerFactory.getLogger(EventListener2.class);
 }
 
 

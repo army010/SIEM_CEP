@@ -37,7 +37,7 @@ public class JsonFileParser {
         });
         LOG.info("Reading " + weblogEventList.size() + " events from the " + fileName);
         return weblogEventList;
-  }
+    }
 
     public List<SymlogEvent> getSymEvents() throws IOException {
         //String fileName1 = "C:\\Users\\Pooja Patel\\IdeaProjects\\SIEM_CEP_new\\symlog.txt";
@@ -47,7 +47,7 @@ public class JsonFileParser {
         List<SymlogEvent> symlogEventList = objectMapper.readValue(jsonData1, new TypeReference<List<SymlogEvent>>() {
         });
 
-        LOG.info("Reading " + symlogEventList.size() +" events from the " +fileName1);
+        LOG.info("Reading " + symlogEventList.size() + " events from the " + fileName1);
         return symlogEventList;
 
     }

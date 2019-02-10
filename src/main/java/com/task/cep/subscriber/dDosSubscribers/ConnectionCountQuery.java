@@ -13,7 +13,7 @@ import java.util.Map;
 public class ConnectionCountQuery implements StatementSubscriber {
     @Override
     public String getStatement() {
-        String statement  = "INSERT INTO ConnectionCount SELECT count(*) AS value\n" +
+        String statement = "INSERT INTO ConnectionCount SELECT count(*) AS value\n" +
                 "FROM IncomingIPConnection.win:time(3 sec) output snapshot\n" +
                 "every 3 seconds";
         return statement;

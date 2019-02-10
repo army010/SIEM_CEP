@@ -12,21 +12,6 @@ public class AlertAntivirusBuckets {
     protected String hash;
     protected String ipaddress;
 
-    @Override
-    public String toString() {
-        return "AlertAntivirusBuckets :" +
-                "time='" + time + '\'' +
-                ", scanner='" + scanner + '\'' +
-                ", type='" + type + '\'' +
-                ", object='" + object + '\'' +
-                ", threat='" + threat + '\'' +
-                ", action='" + action + '\'' +
-                ", user='" + user + '\'' +
-                ", information='" + information + '\'' +
-                ", hash='" + hash + '\'' +
-                ", ipaddress='" + ipaddress + '\'' ;
-    }
-
     public AlertAntivirusBuckets() {
     }
 
@@ -41,6 +26,21 @@ public class AlertAntivirusBuckets {
         this.information = information;
         this.hash = hash;
         this.ipaddress = ipaddress;
+    }
+
+    @Override
+    public String toString() {
+        return "AlertAntivirusBuckets :" +
+                "time='" + time + '\'' +
+                ", scanner='" + scanner + '\'' +
+                ", type='" + type + '\'' +
+                ", object='" + object + '\'' +
+                ", threat='" + threat + '\'' +
+                ", action='" + action + '\'' +
+                ", user='" + user + '\'' +
+                ", information='" + information + '\'' +
+                ", hash='" + hash + '\'' +
+                ", ipaddress='" + ipaddress + '\'';
     }
 
     public String getTime() {

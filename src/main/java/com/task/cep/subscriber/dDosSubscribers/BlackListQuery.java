@@ -17,6 +17,7 @@ public class BlackListQuery implements StatementSubscriber {
                 "FROM PATTERN [every a=DDOSAlarm ->\n" +
                 "every b=SummedIPConnectionCount(value > 21)]";
     }
+
     public void update(Map<String, SyslogEvent> eventMap) {
 
     }

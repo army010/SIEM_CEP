@@ -1,7 +1,6 @@
 package com.task.cep.subscriber;
 
 
-import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPStatement;
 import com.task.cep.event.SyslogEvent;
 import com.task.cep.handler.EventListener;
@@ -19,17 +18,20 @@ public class BruteForceSubscriber implements StatementSubscriber {
 
     public String getStatement() {
 
-        String select = " insert into AlertBucket(user, message, date, src, eventID) select user, message, date, src, eventID" +
+        String select = //" insert into AlertBucket(user, message, date, src, eventID) " +
+                " select user, message, date, src, eventID" +
                 " from SyslogEvent(message = 'An Account failed to Log on').std:groupwin(src).win:time_length_batch(60 sec, 20)";
-                //" from SyslogEvent(message = 'Login Failed').std:groupwin(user).win:expr(current_count = 1)";
 
         return select;
 
     }
 
+    //String select = " select * from AlertBucket.std:groupwin(src).win:time_length_batch(60 sec, 20)";
 
 
     public void update(Map<String, SyslogEvent> eventMap) {
+
+        //LOG.debug("Multiple Login Failed Detected");
 
     }
 

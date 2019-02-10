@@ -11,7 +11,8 @@ public class AlertDashboard {
     }
 
     public void getData(AlertBucket data) {
-        data.getData();             }
+        data.getData();
+    }
 
     public boolean isModified(AlertBucket data) {
         return false;

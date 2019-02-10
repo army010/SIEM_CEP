@@ -13,7 +13,7 @@ import java.util.Map;
 public class IncomingIPConnectionQuery implements StatementSubscriber {
     @Override
     public String getStatement() {
-        String statement  = "INSERT INTO IncomingIPConnection SELECT client_ip " +
+        String statement = "INSERT INTO IncomingIPConnection SELECT client_ip " +
                 "AS incomingip FROM ServerLogEvent";
         return statement;
     }
@@ -21,6 +21,7 @@ public class IncomingIPConnectionQuery implements StatementSubscriber {
     public void update(Map<String, SyslogEvent> eventMap) {
 
     }
+
     @Override
     public void addListener(EventListener eventListener, EPStatement statement) {
 

@@ -5,11 +5,11 @@ import com.task.cep.event.SyslogEvent;
 import com.task.cep.handler.DDOSListener;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
-import com.task.cep.subscriber.dDosSubscribers.*;
 import com.task.cep.subscriber.StatementSubscriber;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+
 @Component
 public class TestSubscriber implements StatementSubscriber {
     @Override
