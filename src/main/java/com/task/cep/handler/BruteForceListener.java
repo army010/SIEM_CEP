@@ -5,8 +5,8 @@ import com.espertech.esper.client.UpdateListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EventListener implements UpdateListener {
-    private static final Logger LOG = LoggerFactory.getLogger(EventListener.class);
+public class BruteForceListener implements UpdateListener {
+    private static final Logger log = LoggerFactory.getLogger(BruteForceListener.class);
 
     public void update(EventBean[] newEvents, EventBean[] oldEvents) {
         if (newEvents == null) {
@@ -16,10 +16,9 @@ public class EventListener implements UpdateListener {
 
         EventBean theEvent = newEvents[0];
 
-        LOG.debug(theEvent.getUnderlying().toString());
+        log.debug(theEvent.getUnderlying().toString());
 
-        //log.debug(theEvent.toString());
-        LOG.debug("Multiple Login Failed Detected!");
+        log.debug("SSH Brute Force Detected");
     }
 }
 

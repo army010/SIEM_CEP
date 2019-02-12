@@ -1,6 +1,7 @@
 package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPStatement;
+import com.task.cep.handler.AntiVirusListener;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
 
@@ -20,4 +21,6 @@ public interface StatementSubscriber {
     void addListener(EventListener eventListener, EPStatement statement);
 
     void addListener(EventListener2 eventListener, EPStatement statement);
+
+    void addListener(AntiVirusListener antiVirusListener, EPStatement statement);
 }

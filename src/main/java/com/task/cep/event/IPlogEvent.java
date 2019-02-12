@@ -14,6 +14,7 @@ public class IPlogEvent {
     private int priority;
     private String origin;
     private String marker;
+    private IPlogEvent event;
 
     public IPlogEvent() {
 
@@ -63,6 +64,8 @@ public class IPlogEvent {
         return "IPLog Event: " + getSrc() + " " + getDst() + " " + getDst_port() + " " + getMarker();
     }
 
+
+    public IPlogEvent getEvent() { return  this.event; }
 
     public String getType() {
         return type;

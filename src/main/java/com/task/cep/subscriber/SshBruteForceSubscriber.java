@@ -3,6 +3,8 @@ package com.task.cep.subscriber;
 
 import com.espertech.esper.client.EPStatement;
 import com.task.cep.event.SyslogEvent;
+import com.task.cep.handler.AntiVirusListener;
+import com.task.cep.handler.BruteForceListener;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
 import org.slf4j.Logger;
@@ -28,7 +30,7 @@ public class SshBruteForceSubscriber implements StatementSubscriber {
 
 
     public void update(Map<String, SyslogEvent> eventMap) {
-        LOG.debug("SSH Brute Force Detected");
+       // LOG.debug("SSH Brute Force Detected");
 
     }
 
@@ -40,6 +42,15 @@ public class SshBruteForceSubscriber implements StatementSubscriber {
     @Override
     public void addListener(EventListener2 eventListener, EPStatement statement) {
 
+    }
+
+    @Override
+    public void addListener(AntiVirusListener antiVirusListener, EPStatement statement) {
+
+    }
+
+    public void addListener(BruteForceListener eventListener, EPStatement statement) {
+        statement.addListener(eventListener);
     }
 
 }

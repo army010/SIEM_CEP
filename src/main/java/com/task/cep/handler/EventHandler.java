@@ -180,7 +180,7 @@ public class EventHandler implements InitializingBean {
         //symVirus();
         //webVirus();
         //multipleAntivirus();
-        //portScan();
+        portScan();
         //DDoS();
 
     }
@@ -215,7 +215,7 @@ public class EventHandler implements InitializingBean {
     public void multipleAntivirus() {
         LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
-        //multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
+        multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(multipleAntivirusSubscriber);
     }
 
@@ -247,7 +247,8 @@ public class EventHandler implements InitializingBean {
 
 
         statement = epService.getEPAdministrator().createEPL(portScanOutput.getStatement());
-        simpleSelectSubscriber.addListener(new EventListener(), statement);
+        //simpleSelectSubscriber.addListener(new EventListener(), statement);
+        portScanOutput.addListener(new PortScanListener(), statement);
         statement.setSubscriber(portScanOutput);
     }
 
@@ -269,7 +270,7 @@ public class EventHandler implements InitializingBean {
     public void sshBruteforce() {
         LOG.debug("Detecting SSH Brute Force Attacks....");
         EPStatement statement = epService.getEPAdministrator().createEPL(sshBruteForceSubscriber.getStatement());
-        sshBruteForceSubscriber.addListener(new EventListener(), statement);
+        sshBruteForceSubscriber.addListener(new BruteForceListener(), statement);
         statement.setSubscriber(sshBruteForceSubscriber);
     }
 
