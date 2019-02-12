@@ -22,7 +22,7 @@ public class SymVirusSubscriber implements StatementSubscriber {
         String SymLogQuery = "Insert into AlertAntivirusBuckets(type,time,user, "+
                                  "scanner,object,threat,action,information,hash,ipaddress) " +
                                  "select type,time,user,scanner,object,threat,action,information,hash,ipaddress " +
-                                 "from SymlogEvent((action = 'not deleted')) having count(*) > 0";
+                                 "from SymlogEvent(action = 'not deleted')#unique(ipaddress) having count(*) > 0";
 
         return SymLogQuery;
     }

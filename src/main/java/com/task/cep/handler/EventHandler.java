@@ -137,17 +137,16 @@ public class EventHandler implements InitializingBean {
 
     @Autowired
     @Qualifier("symVirusSubscriber")
-    private StatementSubscriber symVirusSubscriber;
+    private SymVirusSubscriber symVirusSubscriber;
 
     @Autowired
     @Qualifier("multipleAntivirusSubscriber")
-    private StatementSubscriber multipleAntivirusSubscriber;
+    private MultipleAntivirusSubscriber multipleAntivirusSubscriber;
 
 
     @Autowired
     @Qualifier("webVirusSubscriber")
-    private StatementSubscriber webVirusSubscriber;
-
+    private WebVirusSubscriber webVirusSubscriber;
 
     /**
      * Configure Esper Statement(s).
@@ -177,9 +176,9 @@ public class EventHandler implements InitializingBean {
         //bruteForce();
         //privilegeEsc();
         //sshBruteforce();
-        //symVirus();
-        //webVirus();
-        //multipleAntivirus();
+        symVirus();
+        webVirus();
+        multipleAntivirus();
         //portScan();
         //DDoS();
 
@@ -215,10 +214,10 @@ public class EventHandler implements InitializingBean {
     public void multipleAntivirus() {
         LOG.info("Detect Malware Virus from the web and log file within 3 second .....");
         EPStatement statement = epService.getEPAdministrator().createEPL(multipleAntivirusSubscriber.getStatement());
-        //multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
+        multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(multipleAntivirusSubscriber);
     }
-
+  
     public void portScan() {
         LOG.debug("Detecting PortScan Attempt");
         //epService.getEPAdministrator().createEPL("create schema PortScanEvent(src string, dst string, port int, marker string)");

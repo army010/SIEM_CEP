@@ -20,7 +20,7 @@ public class WebVirusSubscriber implements StatementSubscriber {
         String WebLogQuery = "Insert into AlertAntivirusBuckets(type,time,user,scanner,object,"+
                                  "threat,action,information,hash,ipaddress) " +
                                  "select type,time,user,scanner,object,threat,action,information,hash,ipaddress " +
-                                 "from WeblogEvent((action = 'connection not terminated')) having count(*) > 0";
+                                 "from WeblogEvent(action = 'connection not terminated')#unique(ipaddress) having count(*) > 0";
 
         return WebLogQuery;
     }
