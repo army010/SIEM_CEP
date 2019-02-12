@@ -19,7 +19,7 @@ public class PortScanTwo implements StatementSubscriber {
 
     public String getStatement() {
 
-        String statement = "on CountStream(cnt >= 20) as cs " +
+        String statement = "on CountStream(cnt >= 10) as cs " +
                 "merge SituationsWindow sw " +
                 "where cs.src = sw.src and cs.dst = sw.dst " +
                 "when not matched " +

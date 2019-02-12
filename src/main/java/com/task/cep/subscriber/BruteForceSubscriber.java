@@ -26,7 +26,7 @@ public class BruteForceSubscriber implements StatementSubscriber {
 
     }
 
-    //String select = " select * from AlertBucket.std:groupwin(src).win:time_length_batch(60 sec, 20)";
+    //String select = " select * from AlertBucket.std:groupwin(src).win:time_length_batch(60 sec, 3)";
 
 
     public void update(Map<String, SyslogEvent> eventMap) {

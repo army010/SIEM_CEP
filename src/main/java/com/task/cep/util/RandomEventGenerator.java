@@ -159,7 +159,7 @@ public class RandomEventGenerator {
         eventHandler.handle(log1);
 
 
-        while (count % 45 == 0) {
+        while (count % 35 == 0) {
             SyslogEvent log2 = new SyslogEvent(user[r.nextInt(user.length)], "Special privileges assigned to new logon", 20190112, src[r.nextInt(src.length)], 4672);
             eventHandler.handle(log2);
             count++;

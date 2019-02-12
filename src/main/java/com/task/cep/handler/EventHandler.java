@@ -173,15 +173,15 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(AlertAntivirusBuckets.class);
 
 
-        // simpleSelect();
-        bruteForce();
-        privilegeEsc();
-        sshBruteforce();
-        symVirus();
-        webVirus();
-        multipleAntivirus();
-        portScan();
-        DDoS();
+        //simpleSelect();
+        //bruteForce();
+        //privilegeEsc();
+        //sshBruteforce();
+        //symVirus();
+        //webVirus();
+        //multipleAntivirus();
+        //portScan();
+        //DDoS();
 
     }
 
