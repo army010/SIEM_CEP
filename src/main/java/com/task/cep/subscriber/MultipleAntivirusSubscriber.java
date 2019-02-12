@@ -18,16 +18,16 @@ public class MultipleAntivirusSubscriber implements StatementSubscriber {
 
     public String getStatement() {
 
-//        String checkAB = "Insert into AlertAntivirusBuckets (user,ipaddress) " +
+//        String MultipleVirusAlert = "Insert into AlertAntivirusBuckets (user,ipaddress) " +
 //                " Select web.getUser(), web.getIpaddress() from " +
 //                " WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web," +
 //                " SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym " +
 //                " where web.getIpaddress() = sym.getIpaddress()";
 
-        String MultipleVirusAlert = "select * from AlertAntivirusBuckets.win:time(3 sec),\n" +
-                         "WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web,"+
-                         "SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym"+
-                         "where web.getIpaddress() = sym.getIpaddress()";
+        String MultipleVirusAlert =  "select * from AlertAntivirusBuckets().std:unique(ipaddress).win:time(3 sec),\n" +
+                "WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web,"+
+                "SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym"+
+                " where web.getIpaddress() = sym.getIpaddress()";
 
         return MultipleVirusAlert;
 
