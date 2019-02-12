@@ -31,7 +31,6 @@ public class MultipleAntivirusSubscriber implements StatementSubscriber {
 //
 //
 //
-
         String MultipleVirusAlert = " select t.user,t.ipaddress from AlertAntivirusBuckets#time(3 sec) as t," +
                 "WeblogEvent(action = 'connection not terminated' )#unique(ipaddress) as n," +
                 "SymlogEvent(action = 'not deleted')#unique(ipaddress)#time(3 sec) as m \n" +
