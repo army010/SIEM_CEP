@@ -98,7 +98,7 @@ public class RandomEventGenerator {
                     }
 
                     for (SymlogEvent event : symlogEventList) {
-                        Thread.sleep(2000);
+                        Thread.sleep(500);
                         eventHandler.handle(event);
                     }
 

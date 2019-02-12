@@ -5,6 +5,7 @@ import com.espertech.esper.client.EPStatement;
 import com.task.cep.event.AlertAntivirusBuckets;
 import com.task.cep.handler.EventListener;
 import com.task.cep.handler.EventListener2;
+import com.task.cep.handler.AntiVirusListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,14 +18,18 @@ public class MultipleAntivirusSubscriber implements StatementSubscriber {
 
     public String getStatement() {
 
-        String checkAB = "Insert into AlertAntivirusBuckets (user,ipaddress) " +
-                " Select web.getUser(), web.getIpaddress() from " +
-                " WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web," +
-                //     " SymlogEvent(action = 'not deleted').std:unique(ipaddress) as sym "+
-                " SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym " +
-                " where web.getIpaddress() = sym.getIpaddress()";
+//        String checkAB = "Insert into AlertAntivirusBuckets (user,ipaddress) " +
+//                " Select web.getUser(), web.getIpaddress() from " +
+//                " WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web," +
+//                " SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym " +
+//                " where web.getIpaddress() = sym.getIpaddress()";
 
-        return checkAB;
+        String MultipleVirusAlert = "select * from AlertAntivirusBuckets.win:time(3 sec),\n" +
+                         "WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web,"+
+                         "SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym"+
+                         "where web.getIpaddress() = sym.getIpaddress()";
+
+        return MultipleVirusAlert;
 
     }
 
@@ -41,7 +46,12 @@ public class MultipleAntivirusSubscriber implements StatementSubscriber {
 
     @Override
     public void addListener(EventListener2 eventListener, EPStatement statement) {
-        //statement.addListener(eventListener);
+
     }
+
+    public void addListener(AntiVirusListener antiVirusListener, EPStatement statement) {
+        statement.addListener(antiVirusListener);
+    }
+
 
 }
