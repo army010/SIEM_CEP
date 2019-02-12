@@ -137,17 +137,16 @@ public class EventHandler implements InitializingBean {
 
     @Autowired
     @Qualifier("symVirusSubscriber")
-    private StatementSubscriber symVirusSubscriber;
+    private SymVirusSubscriber symVirusSubscriber;
 
     @Autowired
     @Qualifier("multipleAntivirusSubscriber")
-    private StatementSubscriber multipleAntivirusSubscriber;
+    private MultipleAntivirusSubscriber multipleAntivirusSubscriber;
 
 
     @Autowired
     @Qualifier("webVirusSubscriber")
-    private StatementSubscriber webVirusSubscriber;
-
+    private WebVirusSubscriber webVirusSubscriber;
 
     /**
      * Configure Esper Statement(s).
@@ -180,7 +179,7 @@ public class EventHandler implements InitializingBean {
         //symVirus();
         //webVirus();
         //multipleAntivirus();
-        portScan();
+        //portScan();
         //DDoS();
 
     }
@@ -218,7 +217,7 @@ public class EventHandler implements InitializingBean {
         multipleAntivirusSubscriber.addListener(new AntiVirusListener(), statement);
         statement.setSubscriber(multipleAntivirusSubscriber);
     }
-
+  
     public void portScan() {
         LOG.debug("Detecting PortScan Attempt");
         //epService.getEPAdministrator().createEPL("create schema PortScanEvent(src string, dst string, port int, marker string)");

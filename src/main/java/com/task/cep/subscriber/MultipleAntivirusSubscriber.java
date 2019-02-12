@@ -24,10 +24,18 @@ public class MultipleAntivirusSubscriber implements StatementSubscriber {
 //                " SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym " +
 //                " where web.getIpaddress() = sym.getIpaddress()";
 
-        String MultipleVirusAlert =  "select * from AlertAntivirusBuckets().std:unique(ipaddress).win:time(3 sec),\n" +
-                "WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web,"+
-                "SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym"+
-                " where web.getIpaddress() = sym.getIpaddress()";
+//        String MultipleVirusAlert =  "select alert.user,alert.ipaddress from AlertAntivirusBuckets#unique(ipaddress) as alert,\n" +
+//                "WeblogEvent(action = 'connection not terminated' ).std:unique(ipaddress) as web,"+
+//                "SymlogEvent(action = 'not deleted').std:unique(ipaddress).win:time(3 sec) as sym"+
+//                " where web.getIpaddress() = sym.getIpaddress()";
+//
+//
+//
+        String MultipleVirusAlert = " select t.user,t.ipaddress from AlertAntivirusBuckets#time(3 sec) as t," +
+                "WeblogEvent(action = 'connection not terminated' )#unique(ipaddress) as n," +
+                "SymlogEvent(action = 'not deleted')#unique(ipaddress)#time(3 sec) as m \n" +
+                "where m.ipaddress = n.ipaddress";
+
 
         return MultipleVirusAlert;
 
