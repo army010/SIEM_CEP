@@ -17,11 +17,12 @@ public class WebVirusSubscriber implements StatementSubscriber {
     private static final Logger LOG = LoggerFactory.getLogger(WebVirusSubscriber.class);
 
     public String getStatement() {
-        String logComplexQuery = "insert into AlertAntivirusBuckets(type,time,user,scanner,object,threat,action,information,hash,ipaddress) " +
-                "select type,time,user,scanner,object,threat,action,information,hash,ipaddress " +
-                "from WeblogEvent((action = 'connection not terminated')) having count(*) > 0";
+        String WebLogQuery = "Insert into AlertAntivirusBuckets(type,time,user,scanner,object,"+
+                                 "threat,action,information,hash,ipaddress) " +
+                                 "select type,time,user,scanner,object,threat,action,information,hash,ipaddress " +
+                                 "from WeblogEvent((action = 'connection not terminated')) having count(*) > 0";
 
-        return logComplexQuery;
+        return WebLogQuery;
     }
 
     @Override
