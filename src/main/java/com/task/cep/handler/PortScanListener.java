@@ -5,6 +5,9 @@ import com.espertech.esper.client.UpdateListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.Map;
+
 public class PortScanListener implements UpdateListener {
     private static final Logger log = LoggerFactory.getLogger(PortScanListener.class);
 
@@ -16,10 +19,10 @@ public class PortScanListener implements UpdateListener {
 
         EventBean theEvent = newEvents[0];
 
-        log.debug(theEvent.getUnderlying().toString());
-        //log.debug(theEvent.get("contributors").toString().replace("L",""));
+       // log.debug(theEvent.getUnderlying().toString());
+       // log.debug(theEvent.get("contributors").toString().replace("L",""));
 
-        log.debug("Port Scan Detected");
+        log.debug("Port Scan Detected!");
     }
 }
 

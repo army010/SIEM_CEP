@@ -2,6 +2,7 @@ package com.task.cep.subscriber;
 
 
 import com.espertech.esper.client.EPStatement;
+import com.task.cep.event.IPlogEvent;
 import com.task.cep.event.SyslogEvent;
 import com.task.cep.handler.AntiVirusListener;
 import com.task.cep.handler.EventListener;
@@ -21,15 +22,31 @@ public class PortScanOutput implements StatementSubscriber {
 
     public String getStatement() {
 
-        String statement = "@name('output') select * from OutputAlerts";
+        String statement = "@name('output') select type, cnt, contributors from OutputAlerts";
 
         return statement;
 
     }
 
+    public void update(Map<String, String> eventMap) {
+/*
+        // 1st Temperature in the Critical Sequence
+        TemperatureEvent temp1 = (TemperatureEvent) eventMap.get("temp1");
+        // 2nd Temperature in the Critical Sequence
+        TemperatureEvent temp2 = (TemperatureEvent) eventMap.get("temp2");
+        // 3rd Temperature in the Critical Sequence
+        TemperatureEvent temp3 = (TemperatureEvent) eventMap.get("temp3");
+        // 4th Temperature in the Critical Sequence
+        TemperatureEvent temp4 = (TemperatureEvent) eventMap.get("temp4");
 
-    public void update(Map<String, SyslogEvent> eventMap) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("***************************************");
+        sb.append("\n* [ALERT] : CRITICAL EVENT DETECTED! ");
+        sb.append("\n* " + temp1 + " > " + temp2 + " > " + temp3 + " > " + temp4);
+        sb.append("\n***************************************");
 
+        LOG.debug(sb.toString());*/
+        LOG.debug(eventMap.toString());
     }
 
 

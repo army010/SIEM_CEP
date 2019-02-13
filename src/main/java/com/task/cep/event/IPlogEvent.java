@@ -7,7 +7,7 @@ public class IPlogEvent {
     private String src;
     private String dst;
     private int src_port;
-    private int dst_port;
+    private int port;
     private int bytes;
     private int packets;
     private long date;
@@ -20,8 +20,8 @@ public class IPlogEvent {
 
     }
 
-    public IPlogEvent(String _src, String _dst, int _dst_port, String _marker) {
-        dst_port = _dst_port;
+    public IPlogEvent(String _src, String _dst, int _port, String _marker) {
+        port = _port;
         src = _src;
         dst = _dst;
         marker = _marker;
@@ -108,11 +108,11 @@ public class IPlogEvent {
     }
 
     public int getDst_port() {
-        return dst_port;
+        return port;
     }
 
     public void setDst_port(int dst_port) {
-        this.dst_port = dst_port;
+        this.port = dst_port;
     }
 
     public int getBytes() {

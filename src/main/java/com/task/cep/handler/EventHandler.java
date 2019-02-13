@@ -172,14 +172,14 @@ public class EventHandler implements InitializingBean {
         epService.getEPAdministrator().getConfiguration().addEventType(AlertAntivirusBuckets.class);
 
 
-        //simpleSelect();
+        simpleSelect();
         //bruteForce();
         //privilegeEsc();
         //sshBruteforce();
         //symVirus();
         //webVirus();
         //multipleAntivirus();
-        //portScan();
+        portScan();
         //DDoS();
 
     }
@@ -220,8 +220,8 @@ public class EventHandler implements InitializingBean {
   
     public void portScan() {
         LOG.debug("Detecting PortScan Attempt");
-        //epService.getEPAdministrator().createEPL("create schema PortScanEvent(src string, dst string, port int, marker string)");
-        epService.getEPAdministrator().createEPL("create table ScanCountTable(src string primary key, dst string primary key, cnt count(*), win window(*) @type(IPlogEvent))");
+        epService.getEPAdministrator().createEPL("create objectarray schema PortScanEvent(src string, dst string, port int, marker string)");
+        epService.getEPAdministrator().createEPL("create table ScanCountTable(src string primary key, dst string primary key, cnt count(*), win window(*) @type(PortScanEvent))");
         epService.getEPAdministrator().createEPL("create window SituationsWindow#keepall() (src string, dst string, detectionTime long)");
 
         EPStatement statement;

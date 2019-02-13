@@ -20,7 +20,8 @@ public class SimpleSelectSubscriber implements StatementSubscriber {
 
     public String getStatement() {
 
-        String select = "select * from SyslogEvent(message = 'Login Failed') having count(*) > 10";
+        String select = "insert into PortScanEvent(src, dst, port, marker) select ip.getSrc().toString(), ip.getDst(), ip.getDst_port(), ip.getMarker() from pattern" +
+                "[every ip = IPlogEvent]";
 
         return select;
 

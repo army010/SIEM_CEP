@@ -23,7 +23,7 @@ public class PortScanOne implements StatementSubscriber {
         String statement = "into table ScanCountTable " +
                 "insert into CountStream " +
                 "select src, dst, count(*) as cnt, window(*) as win " +
-                "from IPlogEvent#unique(src, dst, dst_port)#time(30 sec) group by src,dst";
+                "from PortScanEvent#unique(src, dst, port)#time(30 sec) group by src,dst";
 
         return statement;
 
