@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Component
@@ -22,7 +23,7 @@ public class PortScanOutput implements StatementSubscriber {
 
     public String getStatement() {
 
-        String statement = "@name('output') select type, cnt, contributors from OutputAlerts";
+        String statement = "@name('output') select type, cnt, Arrays.asList(contributors) from OutputAlerts";
 
         return statement;
 
@@ -46,7 +47,9 @@ public class PortScanOutput implements StatementSubscriber {
         sb.append("\n***************************************");
 
         LOG.debug(sb.toString());*/
-        LOG.debug(eventMap.toString());
+        //LOG.debug(eventMap.toString());
+
+
     }
 
 

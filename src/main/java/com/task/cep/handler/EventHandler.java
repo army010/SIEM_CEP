@@ -241,7 +241,7 @@ public class EventHandler implements InitializingBean {
 
 
         statement = epService.getEPAdministrator().createEPL(portScanFour.getStatement());
-        //simpleSelectSubscriber.addListener(new EventListener(), statement);
+        //portScanFour.addListener(new EventListener(), statement);
         statement.setSubscriber(portScanFour);
 
 

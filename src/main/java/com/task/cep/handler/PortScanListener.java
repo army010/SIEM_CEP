@@ -19,7 +19,7 @@ public class PortScanListener implements UpdateListener {
 
         EventBean theEvent = newEvents[0];
 
-       // log.debug(theEvent.getUnderlying().toString());
+        log.debug(theEvent.getUnderlying().toString());
        // log.debug(theEvent.get("contributors").toString().replace("L",""));
 
         log.debug("Port Scan Detected!");
